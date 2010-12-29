@@ -12,8 +12,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Supplies TimeOfDay class}
   s.description = %q{Supplies TimeOfDay class that includes parsing, strftime, comparison, and arithmetic.}
 
-  s.rubyforge_project = "tod"
-
   s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"
