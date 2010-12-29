@@ -75,10 +75,13 @@ Format strings are passed to Time#strftime.
 Convenience methods for dates and times
 ---------------------------------------
 
->> tod = TimeOfDay.new 8, 30
-=> 08:30:00
->> tod.on(Date.today)
-=> 2010-12-29 08:30:00 -0600
+Tod adds Date#on and Time#to_time_of_day. If you do not want the core extensions
+then require 'tod/time_of_day' instead of 'tod'.
+
+    tod = TimeOfDay.new 8, 30                       # => 08:30:00
+    tod.on Date.today                               # => 2010-12-29 08:30:00 -0600
+    Date.today.at tod                               # => 2010-12-29 08:30:00 -0600
+    Time.now.to_time_of_day                         # => 16:30:43
 
 License
 =======

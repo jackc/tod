@@ -46,12 +46,15 @@ module Tod
       raise ArgumentError, "second must be between 0 and 59" unless (0..59).include?(@second)
 
       @second_of_day = @hour * 60 * 60 + @minute * 60 + @second
+      
+      freeze # TimeOfDay instances are value objects
     end
 
     def <=>(other)
       @second_of_day <=> other.second_of_day
     end
 
+    # Formats identically to Time#strftime
     def strftime(format_string)
       Time.local(2000,1,1, @hour, @minute, @second).strftime(format_string)
     end
@@ -60,18 +63,26 @@ module Tod
       strftime "%H:%M:%S"
     end
 
+    # Return a new TimeOfDay num_seconds greater than self. It will wrap around
+    # at midnight.
     def +(num_seconds)
       TimeOfDay.from_second_of_day @second_of_day + num_seconds
     end
 
+    # Return a new TimeOfDay num_seconds less than self. It will wrap around
+    # at midnight.
     def -(num_seconds)
       TimeOfDay.from_second_of_day @second_of_day - num_seconds
     end
 
+    # Returns a Time instance on date using self as the time of day
     def on(date)
       Time.local date.year, date.month, date.day, @hour, @minute, @second
     end
 
+    # Build a new TimeOfDay instance from second_of_day
+    #
+    #   TimeOfDay.from_second_of_day(3600) == TimeOfDay.new(1)   # => true
     def self.from_second_of_day(second_of_day)
       remaining_seconds = second_of_day % NUM_SECONDS_IN_DAY
       hour = remaining_seconds / NUM_SECONDS_IN_HOUR
@@ -81,6 +92,21 @@ module Tod
       new hour, minute, remaining_seconds
     end
 
+    # Build a TimeOfDay instance from string
+    #
+    # Strings only need to contain an hour. Minutes, seconds, AM or PM, and colons
+    # are all optional.
+    #   TimeOfDay.parse "8"                            # => 08:00:00
+    #   TimeOfDay.parse "8am"                          # => 08:00:00
+    #   TimeOfDay.parse "8pm"                          # => 20:00:00
+    #   TimeOfDay.parse "8p"                           # => 20:00:00
+    #   TimeOfDay.parse "9:30"                         # => 09:30:00
+    #   TimeOfDay.parse "15:30"                        # => 15:30:00
+    #   TimeOfDay.parse "3:30pm"                       # => 15:30:00
+    #   TimeOfDay.parse "1230"                         # => 12:30:00
+    #   TimeOfDay.parse "3:25:58"                      # => 03:25:58
+    #   TimeOfDay.parse "515p"                         # => 17:15:00
+    #   TimeOfDay.parse "151253"                       # => 15:12:53
     def self.parse(tod_string)
       tod_string = tod_string.strip
       tod_string = tod_string.downcase
