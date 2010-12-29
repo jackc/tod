@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jack Christensen"]
   s.email       = ["jack@jackchristensen.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/JackC/tod"
   s.summary     = %q{Supplies TimeOfDay class}
   s.description = %q{Supplies TimeOfDay class that includes parsing, strftime, comparison, and arithmetic.}
 
