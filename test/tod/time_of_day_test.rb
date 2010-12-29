@@ -1,9 +1,4 @@
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__),'..','lib')
-
-require 'tod'
-require 'test/unit'
-require 'shoulda'
-require 'mocha'
+require File.expand_path(File.join(File.dirname(__FILE__),'..','test_helper'))
 
 class TimeOfDayTest < Test::Unit::TestCase
   context "initialize" do
@@ -131,7 +126,7 @@ class TimeOfDayTest < Test::Unit::TestCase
     should "return new TimeOfDay" do
       original = TimeOfDay.new(8,0,0)
       result = original + 15
-      assert_not_equal original.object_id, result.object_id      
+      assert_not_equal original.object_id, result.object_id
     end
   end
 
@@ -151,7 +146,7 @@ class TimeOfDayTest < Test::Unit::TestCase
     should "return new TimeOfDay" do
       original = TimeOfDay.new(8,0,0)
       result = original - 15
-      assert_not_equal original.object_id, result.object_id      
+      assert_not_equal original.object_id, result.object_id
     end
   end
 
@@ -177,6 +172,12 @@ class TimeOfDayTest < Test::Unit::TestCase
 
     should "handle negative numbers more than a day away" do
       assert_equal TimeOfDay.new(23,59,30), TimeOfDay.from_second_of_day(-86430)
+    end
+  end
+
+  context "on" do
+    should "be local Time on given date" do
+      assert_equal Time.local(2010,12,29, 8,30), TimeOfDay.new(8,30).on(Date.civil(2010,12,29))
     end
   end
 end
