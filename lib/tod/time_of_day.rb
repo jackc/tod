@@ -75,9 +75,11 @@ module Tod
       TimeOfDay.from_second_of_day @second_of_day - num_seconds
     end
 
-    # Returns a Time instance on date using self as the time of day
-    def on(date)
-      Time.local date.year, date.month, date.day, @hour, @minute, @second
+    # Returns a local or timezone Time instance on date using self as the time of day
+    def on(date, timezone=nil)
+      Time.use_zone timezone do
+        Time.zone.local(date.year, date.month, date.day, @hour, @minute, @second)
+      end
     end
 
     # Build a new TimeOfDay instance from second_of_day
