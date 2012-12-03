@@ -179,5 +179,11 @@ class TimeOfDayTest < Test::Unit::TestCase
     should "be local Time on given date" do
       assert_equal Time.local(2010,12,29, 8,30), TimeOfDay.new(8,30).on(Date.civil(2010,12,29))
     end
+    should "be timezone Time on given date" do
+      Time.use_zone "Europe/Paris" do
+        date_in_timezone = Time.zone.local(2000,1,1, 8,30)
+      end
+      assert_equal date_in_timezone,  TimeOfDay.new(8,30).on(Date.civil(2010,12,29), "Europe/Paris")
+    end
   end
 end
