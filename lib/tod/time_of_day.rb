@@ -125,8 +125,9 @@ module Tod
       end
     end
 
+    # If ActiveSupport TimeZone is available and set use current time zone else return Time
     def self.time_zone
-      Time
+      (Time.respond_to?(:zone) && Time.zone) || Time
     end
   end
 end

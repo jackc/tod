@@ -83,7 +83,12 @@ then require 'tod/time_of_day' instead of 'tod'.
     Date.today.at tod                               # => 2010-12-29 08:30:00 -0600
     Time.now.to_time_of_day                         # => 16:30:43
 
+Rails Time Zone Support
+=======================
+
+If Rails time zone support is loaded, Date#on and TimeOfDay#at will automatically use Time.zone.
+
 License
 =======
 
-Copyright (c) 2010 Jack Christensen, released under the MIT license
+Copyright (c) 2010-2103 Jack Christensen, released under the MIT license
