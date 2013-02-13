@@ -77,7 +77,7 @@ module Tod
 
     # Returns a Time instance on date using self as the time of day
     # Optional time_zone will build time in that zone
-    def on(date, time_zone=Time)
+    def on(date, time_zone=Tod::TimeOfDay.time_zone)
       time_zone.local date.year, date.month, date.day, @hour, @minute, @second
     end
 
@@ -123,6 +123,10 @@ module Tod
       else
         raise ArgumentError, "Invalid time of day string"
       end
+    end
+
+    def self.time_zone
+      Time
     end
   end
 end
