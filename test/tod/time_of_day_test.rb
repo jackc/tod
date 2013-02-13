@@ -1,4 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__),'..','test_helper'))
+require 'active_support/time'
 
 class TimeOfDayTest < Test::Unit::TestCase
   context "initialize" do
@@ -178,6 +179,15 @@ class TimeOfDayTest < Test::Unit::TestCase
   context "on" do
     should "be local Time on given date" do
       assert_equal Time.local(2010,12,29, 8,30), TimeOfDay.new(8,30).on(Date.civil(2010,12,29))
+    end
+
+    context "with a time zone" do
+      should "be TimeWithZone on given date" do
+        date = Date.civil 2000,1,1
+        tod = TimeOfDay.new 8,30
+        time_zone = ActiveSupport::TimeZone['Eastern Time (US & Canada)']
+        assert_equal time_zone.local(2000,1,1, 8,30), tod.on(date, time_zone)
+      end
     end
   end
 end

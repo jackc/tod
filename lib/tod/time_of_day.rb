@@ -46,7 +46,7 @@ module Tod
       raise ArgumentError, "second must be between 0 and 59" unless (0..59).include?(@second)
 
       @second_of_day = @hour * 60 * 60 + @minute * 60 + @second
-      
+
       freeze # TimeOfDay instances are value objects
     end
 
@@ -76,8 +76,9 @@ module Tod
     end
 
     # Returns a Time instance on date using self as the time of day
-    def on(date)
-      Time.local date.year, date.month, date.day, @hour, @minute, @second
+    # Optional time_zone will build time in that zone
+    def on(date, time_zone=Time)
+      time_zone.local date.year, date.month, date.day, @hour, @minute, @second
     end
 
     # Build a new TimeOfDay instance from second_of_day
