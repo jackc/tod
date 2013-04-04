@@ -5,6 +5,7 @@ module Tod
     attr_reader :hour, :minute, :second, :second_of_day
     alias_method :min, :minute
     alias_method :sec, :second
+    alias_method :to_i, :second_of_day
 
     PARSE_24H_REGEX = /
       \A

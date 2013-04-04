@@ -111,6 +111,13 @@ class TimeOfDayTest < Test::Unit::TestCase
     end
   end
 
+  context "to_i" do
+    should "format to integer" do
+      assert_equal 29730, TimeOfDay.new(8,15,30).to_i
+      assert TimeOfDay.new(22,10,45).to_i.is_a? Integer
+    end
+  end
+
   context "addition" do
     should "add seconds" do
       original = TimeOfDay.new(8,0,0)
