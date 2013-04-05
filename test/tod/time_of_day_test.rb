@@ -31,6 +31,11 @@ class TimeOfDayTest < Test::Unit::TestCase
     should "be 86399 at last second of day" do
       assert_equal 86399, TimeOfDay.new(23,59,59).second_of_day
     end
+
+    should "have alias to_i" do
+      tod = TimeOfDay.new(0,0,0)
+      assert_equal tod.method(:second_of_day), tod.method(:to_i)
+    end
   end
 
   def self.should_parse(parse_string, expected_hour, expected_minute, expected_second)
@@ -111,6 +116,13 @@ class TimeOfDayTest < Test::Unit::TestCase
     end
   end
 
+  context "to_i" do
+    should "format to integer" do
+      assert_equal 29730, TimeOfDay.new(8,15,30).to_i
+      assert TimeOfDay.new(22,10,45).to_i.is_a? Integer
+    end
+  end
+
   context "addition" do
     should "add seconds" do
       original = TimeOfDay.new(8,0,0)
@@ -173,6 +185,10 @@ class TimeOfDayTest < Test::Unit::TestCase
 
     should "handle negative numbers more than a day away" do
       assert_equal TimeOfDay.new(23,59,30), TimeOfDay.from_second_of_day(-86430)
+    end
+
+    should "have alias from_i" do
+      assert_equal TimeOfDay.method(:from_second_of_day), TimeOfDay.method(:from_i)
     end
   end
 
