@@ -93,6 +93,9 @@ module Tod
       remaining_seconds -= minute * NUM_SECONDS_IN_MINUTE
       new hour, minute, remaining_seconds
     end
+    class << self
+      alias :from_i :from_second_of_day
+    end
 
     # Build a TimeOfDay instance from string
     #
