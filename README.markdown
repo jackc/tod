@@ -91,4 +91,4 @@ If Rails time zone support is loaded, Date#on and TimeOfDay#at will automaticall
 License
 =======
 
-Copyright (c) 2010-2103 Jack Christensen, released under the MIT license
+Copyright (c) 2010-2013 Jack Christensen, released under the MIT license
