@@ -91,15 +91,15 @@ If Rails time zone support is loaded, Date#on and TimeOfDay#at will automaticall
 History
 =======
 
-# 1.1.1 (April 12, 2013)
+## 1.1.1 (April 12, 2013)
 
 * Added to_i and from_i as aliases of second_of_day and from_second_of_day (Johnny Shields)
 
-# 1.1.0 (February 13, 2013)
+## 1.1.0 (February 13, 2013)
 
 * Added Rails time zone support
 
-# 1.0.0 (December 29, 2010)
+## 1.0.0 (December 29, 2010)
 
 * Initial Release
 
