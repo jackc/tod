@@ -88,6 +88,12 @@ Rails Time Zone Support
 
 If Rails time zone support is loaded, Date#on and TimeOfDay#at will automatically use Time.zone.
 
+Compatibility
+=============
+
+[![Build Status](https://travis-ci.org/JackC/tod.png)](https://travis-ci.org/JackC/tod)
+
+
 History
 =======
 
