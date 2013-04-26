@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"
-  s.add_development_dependency "active_support", ">= 3.0"
+  s.add_development_dependency "activesupport"
   s.add_development_dependency "tzinfo"
   s.add_development_dependency "rake"
 
