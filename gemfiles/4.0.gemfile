@@ -1,0 +1,5 @@
+source "https://rubygems.org"
+
+gem "active_support", "4.0.0.beta1"
+
+gemspec :path=>"../"
