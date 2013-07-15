@@ -43,7 +43,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (>= 3.0.0)
-  activesupport
   mocha
   rake
   shoulda
