@@ -133,6 +133,14 @@ module Tod
     def self.time_zone
       (Time.respond_to?(:zone) && Time.zone) || Time
     end
+
+    def self.dump(time_of_day)
+      time_of_day.to_s
+    end
+
+    def self.load(time)
+      TimeOfDay.parse(time) if time && !time.empty?
+    end
   end
 end
 

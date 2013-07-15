@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "activesupport"
   s.add_development_dependency "tzinfo"
   s.add_development_dependency "rake"
+  s.add_development_dependency "activerecord"
+  s.add_development_dependency "sqlite3"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
