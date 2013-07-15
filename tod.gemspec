@@ -15,9 +15,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"
-  s.add_development_dependency "activesupport"
   s.add_development_dependency "tzinfo"
   s.add_development_dependency "rake"
+  s.add_development_dependency "activerecord", ">= 3.0.0"
+  s.add_development_dependency "sqlite3"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
