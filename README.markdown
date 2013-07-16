@@ -112,6 +112,10 @@ Tod is compatible with Ruby 1.9.3 and 2.0.0 and Rails 3.0, 3.1, 3.2, and 4.0.
 History
 =======
 
+## 1.2.0 (July 16, 2013)
+
+* Added ActiveRecord TimeOfDay serialization to time column (Maxim-Filimonov)
+
 ## 1.1.1 (April 12, 2013)
 
 * Added to_i and from_i as aliases of second_of_day and from_second_of_day (Johnny Shields)
