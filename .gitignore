@@ -2,3 +2,5 @@ pkg/*
 *.gem
 .bundle
 nbproject
+*.swp
+.rvmrc
