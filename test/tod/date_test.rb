@@ -18,4 +18,11 @@ class DateTest < Test::Unit::TestCase
       end
     end
   end
+
+  context "to_time_day" do
+    should "be TimeOfDay" do
+      date_time = DateTime.new 2013, 9, 19, 15, 17, 34
+      assert_equal TimeOfDay.new(15, 17, 34), date_time.to_time_of_day
+    end
+  end
 end
