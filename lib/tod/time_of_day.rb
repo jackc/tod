@@ -135,7 +135,11 @@ module Tod
     end
 
     def self.dump(time_of_day)
-      time_of_day.to_s
+      if time_of_day.to_s == ''
+        nil
+      else
+        time_of_day.to_s
+      end
     end
 
     def self.load(time)
