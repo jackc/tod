@@ -206,4 +206,26 @@ class TimeOfDayTest < Test::Unit::TestCase
       end
     end
   end
+
+  context "distance_to" do
+    should "work when first time is lower than the second one" do
+      distance_expected = 4 * 60 * 60 + 30 * 60 + 30 # 4 hours, 30 min and 30 sec later
+      tod1 = TimeOfDay.new 8,30
+      tod2 = TimeOfDay.new 13,00,30
+      distance = tod1.distance_to(tod2)
+      assert_equal distance, distance_expected
+    end
+    should "work when first time is greater than the second one" do
+      distance_expected = 4 * 60 * 60 + 30 * 60 + 30 # 4 hours, 30 min and 30 sec later
+      tod1 = TimeOfDay.new 22,30
+      tod2 = TimeOfDay.new 3,00,30
+      distance = tod1.distance_to(tod2)
+      assert_equal distance, distance_expected
+    end
+    should "be zero when both times are equal" do
+      tod1 = TimeOfDay.new 3,00,30
+      distance = tod1.distance_to(tod1)
+      assert_equal distance, 0
+    end
+  end
 end

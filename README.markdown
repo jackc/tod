@@ -63,6 +63,12 @@ TimeOfDay includes Comparable.
     TimeOfDay.new(9) == TimeOfDay.new(9)           # => true
     TimeOfDay.new(10) > TimeOfDay.new(9)           # => true
 
+Distance
+--------------------
+
+    TimeOfDay.new(9).distance_to(TimeOfDay.new(17)) # => 28800
+    TimeOfDay.new(20).distance_to(TimeOfDay.new(2)) # => 21600
+
 Formatting
 ----------
 
