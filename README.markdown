@@ -63,6 +63,20 @@ TimeOfDay includes Comparable.
     TimeOfDay.new(9) == TimeOfDay.new(9)           # => true
     TimeOfDay.new(10) > TimeOfDay.new(9)           # => true
 
+Distance
+--------------------
+
+    TimeOfDay.new(9).distance_to(TimeOfDay.new(17)) # => 28800
+    TimeOfDay.new(20).distance_to(TimeOfDay.new(2)) # => 21600
+
+Between
+--------------------
+
+    TimeOfDay.new(12).between?(TimeOfDay.new(9), TimeOfDay.new(17)) # => true
+    TimeOfDay.new(7).between?(TimeOfDay.new(9), TimeOfDay.new(17))  # => true
+    TimeOfDay.new(2).between?(TimeOfDay.new(20), TimeOfDay.new(4))  # => true
+    TimeOfDay.new(18).between?(TimeOfDay.new(20), TimeOfDay.new(4)) # => false
+
 Formatting
 ----------
 

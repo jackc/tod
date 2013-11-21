@@ -64,6 +64,35 @@ module Tod
       strftime "%H:%M:%S"
     end
 
+    # Return distance in seconds to the other object
+    # This method always returns a positive distance, so if received object is lower than self
+    # this method will calculate as the received time is from the following day
+    def distance_to(other)
+      this = TimeOfDay.from_second_of_day @second_of_day
+      if other >= this
+        (other.to_i - this.to_i)
+      else
+        start_of_day   = TimeOfDay.new(0,0,0)
+        end_of_day     = TimeOfDay.new(23,59,59)
+        duration_day_1 = (end_of_day.to_i - this.to_i) + 1
+        duration_day_2 = (other.to_i - start_of_day.to_i)
+        duration_day_1 + duration_day_2
+      end
+    end
+
+    # Returns true if the time of day is between first_tod and second_tod (inclusive range)
+    # false otherwise
+    def between?(first_tod, second_tod)
+      this = TimeOfDay.from_second_of_day @second_of_day
+      if second_tod >= first_tod
+        this >= first_tod && this <= second_tod
+      else
+        start_of_day   = TimeOfDay.new(0,0,0)
+        end_of_day     = TimeOfDay.new(23,59,59)
+        (this >= first_tod && this <= end_of_day) || (this >= start_of_day && this <= second_tod)
+      end
+    end
+
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
     def +(num_seconds)
@@ -75,6 +104,8 @@ module Tod
     def -(num_seconds)
       TimeOfDay.from_second_of_day @second_of_day - num_seconds
     end
+
+
 
     # Returns a Time instance on date using self as the time of day
     # Optional time_zone will build time in that zone
