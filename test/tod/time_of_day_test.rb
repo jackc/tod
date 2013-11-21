@@ -228,4 +228,62 @@ class TimeOfDayTest < Test::Unit::TestCase
       assert_equal distance, 0
     end
   end
+
+  context "between?" do
+    # |------------------------|--------T1----V----T2----|------------------------|
+    should "be true when value is between ToDs and boths tods are in the same day" do
+      tod1  = TimeOfDay.new 8
+      tod2  = TimeOfDay.new 16
+      value = TimeOfDay.new 12
+      assert_equal value.between?(tod1, tod2), true
+    end
+
+    # |------------------T1----|-------V----------T2-----|------------------------|
+    should "be true when value is on second day between ToDs and start ToD is in a different day" do
+      tod1  = TimeOfDay.new 20
+      tod2  = TimeOfDay.new 15
+      value = TimeOfDay.new 12
+      assert_equal value.between?(tod1, tod2), true
+    end
+
+    # |------------------T1--V-|------------------T2-----|------------------------|
+    should "be true when value is on first day between ToDs and start ToD is in a different day" do
+      tod1  = TimeOfDay.new 20
+      tod2  = TimeOfDay.new 15
+      value = TimeOfDay.new 22
+      assert_equal value.between?(tod1, tod2), true
+    end
+
+    # |------------------------|--------T1----------V----|----T2------------------|
+    should "be true when value is on first day between ToDs and end ToD is in a different day" do
+      tod1  = TimeOfDay.new 16
+      tod2  = TimeOfDay.new 4
+      value = TimeOfDay.new 20
+      assert_equal value.between?(tod1, tod2), true
+    end
+
+    # |------------------------|--------T1---------------|--V---T2----------------|
+    should "be true when value is on first day between ToDs and end ToD is in a different day" do
+      tod1  = TimeOfDay.new 16
+      tod2  = TimeOfDay.new 4
+      value = TimeOfDay.new 2
+      assert_equal value.between?(tod1, tod2), true
+    end
+
+    # |------------------------|--------T1-----T2----V---|------------------------|
+    should "be false when value is after second ToD" do
+      tod1  = TimeOfDay.new 10
+      tod2  = TimeOfDay.new 16
+      value = TimeOfDay.new 20
+      assert_equal value.between?(tod1, tod2), false
+    end
+
+    # |------------------------|--V-----T1-----T2--------|------------------------|
+    should "be false when value is before first ToD" do
+      tod1  = TimeOfDay.new 10
+      tod2  = TimeOfDay.new 16
+      value = TimeOfDay.new 8
+      assert_equal value.between?(tod1, tod2), false
+    end
+  end
 end

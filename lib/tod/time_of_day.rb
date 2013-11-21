@@ -80,6 +80,19 @@ module Tod
       end
     end
 
+    # Returns true if the time of day is between first_tod and second_tod (inclusive range)
+    # false otherwise
+    def between?(first_tod, second_tod)
+      this = TimeOfDay.from_second_of_day @second_of_day
+      if second_tod >= first_tod
+        this >= first_tod && this <= second_tod
+      else
+        start_of_day   = TimeOfDay.new(0,0,0)
+        end_of_day     = TimeOfDay.new(23,59,59)
+        (this >= first_tod && this <= end_of_day) || (this >= start_of_day && this <= second_tod)
+      end
+    end
+
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
     def +(num_seconds)
