@@ -4,6 +4,9 @@ Tod
 Supplies TimeOfDay class that includes parsing, strftime, comparison, and
 arithmetic.
 
+Supplies Shift to represent a period of time, using a beginning and ending TimeOfDay. Allows to calculate its duration and
+to determine if a TimeOfDay is included inside the shift. For nightly shifts (when beginning time is greater than ending time),
+it supposes the shift ends the following day.
 
 Installation
 ============
@@ -63,20 +66,6 @@ TimeOfDay includes Comparable.
     TimeOfDay.new(9) == TimeOfDay.new(9)           # => true
     TimeOfDay.new(10) > TimeOfDay.new(9)           # => true
 
-Distance
---------------------
-
-    TimeOfDay.new(9).distance_to(TimeOfDay.new(17)) # => 28800
-    TimeOfDay.new(20).distance_to(TimeOfDay.new(2)) # => 21600
-
-Between
---------------------
-
-    TimeOfDay.new(12).between?(TimeOfDay.new(9), TimeOfDay.new(17)) # => true
-    TimeOfDay.new(7).between?(TimeOfDay.new(9), TimeOfDay.new(17))  # => true
-    TimeOfDay.new(2).between?(TimeOfDay.new(20), TimeOfDay.new(4))  # => true
-    TimeOfDay.new(18).between?(TimeOfDay.new(20), TimeOfDay.new(4)) # => false
-
 Formatting
 ----------
 
@@ -97,6 +86,34 @@ then require 'tod/time_of_day' instead of 'tod'.
     Date.today.at tod                               # => 2010-12-29 08:30:00 -0600
     Time.now.to_time_of_day                         # => 16:30:43
     DateTime.now.to_time_of_day                     # => 16:30:43
+
+
+Shifts
+=======================
+
+Represents a period of time, using a beginning and ending TimeOfDay. Allows to calculate its duration and
+to determine if a TimeOfDay is included inside the shift. For nightly shifts (when beginning time is greater than ending time),
+it supposes the shift ends the following day.
+
+Creating from TimeOfDay
+--------------------------------------
+
+    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17))
+    Shift.new(TimeOfDay.new(22), TimeOfDay.new(4))
+
+Duration
+--------------------
+
+    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).duration # => 28800
+    Shift.new(TimeOfDay.new(20), TimeOfDay.new(2)).duration # => 21600
+
+Include?
+--------------------
+
+    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).include?(TimeOfDay.new(12)) # => true
+    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).include?(TimeOfDay.new(7))  # => false
+    Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(2))  # => true
+    Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(18)) # => false
 
 Rails Time Zone Support
 =======================

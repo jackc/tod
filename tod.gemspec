@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jack Christensen"]
   s.email       = ["jack@jackchristensen.com"]
   s.homepage    = "https://github.com/JackC/tod"
-  s.summary     = %q{Supplies TimeOfDay class}
-  s.description = %q{Supplies TimeOfDay class that includes parsing, strftime, comparison, and arithmetic.}
+  s.summary     = %q{Supplies TimeOfDay and Shift class}
+  s.description = %q{Supplies TimeOfDay and Shift class that includes parsing, strftime, comparison, and arithmetic.}
 
   s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
