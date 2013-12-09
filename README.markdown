@@ -144,6 +144,10 @@ Tod is compatible with Ruby 1.9.3 and 2.0.0 and Rails 3.0, 3.1, 3.2, and 4.0.
 History
 =======
 
+## 1.3.0 (December 9, 2013)
+
+* Add Shift class (Pablo Russo)
+
 ## 1.2.2 (November 16, 2013)
 
 * Fix dumping nil or empty string to PostgreSQL time column (Maik Arnold)
