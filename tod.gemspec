@@ -4,7 +4,7 @@ require "tod/version"
 
 Gem::Specification.new do |s|
   s.name        = "tod"
-  s.version     = TimeOfDay::VERSION
+  s.version     = Tod::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jack Christensen"]
   s.email       = ["jack@jackchristensen.com"]
