@@ -151,5 +151,3 @@ module Tod
     end
   end
 end
-
-TimeOfDay = Tod::TimeOfDay
