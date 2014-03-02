@@ -87,6 +87,16 @@ then require 'tod/time_of_day' instead of 'tod'.
     Time.now.to_time_of_day                         # => 16:30:43
     DateTime.now.to_time_of_day                     # => 16:30:43
 
+Conversion method
+-----------------
+
+Tod provides a conversion method which will handle a variety of input types:
+
+    TimeOfDay(TimeOfDay.new(8, 30))           # => 08:30:00
+    TimeOfDay("09:45")                        # => 09:45:00
+    TimeOfDay(Time.new(2014, 1, 1, 12, 30))   # => 12:30:00
+    TimeOfDay(Date.new(2014, 1, 1))           # => 00:00:00
+
 
 Shifts
 =======================
