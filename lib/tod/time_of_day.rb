@@ -138,6 +138,13 @@ module Tod
       end
     end
 
+    # Determine if a string is parsable into a TimeOfDay instance
+    #   TimeOfDay.parsable? "8am"                      # => true
+    #   TimeOfDay.parsable? "abc"                      # => false
+    def self.parsable?(tod_string)
+      !self.try_parse(tod_string).nil?
+    end
+
     # If ActiveSupport TimeZone is available and set use current time zone else return Time
     def self.time_zone
       (Time.respond_to?(:zone) && Time.zone) || Time

@@ -42,6 +42,7 @@ class TimeOfDayTest < Test::Unit::TestCase
     expected_tod = TimeOfDay.new expected_hour, expected_minute, expected_second
 
     should "parse '#{parse_string}' into #{expected_tod.inspect}" do
+      assert_equal true, TimeOfDay.parsable?(parse_string)
       assert_equal expected_tod, TimeOfDay.try_parse(parse_string)
       assert_equal expected_tod, TimeOfDay.parse(parse_string)
     end
@@ -49,6 +50,7 @@ class TimeOfDayTest < Test::Unit::TestCase
 
   def self.should_not_parse(parse_string)
     should "not parse '#{parse_string}'" do
+      assert_equal false, TimeOfDay.parsable?(parse_string)
       assert_equal nil, TimeOfDay.try_parse(parse_string)
       assert_raise(ArgumentError) { TimeOfDay.parse(parse_string) }
     end
@@ -96,6 +98,7 @@ class TimeOfDayTest < Test::Unit::TestCase
   should_not_parse []
 
   should "not parse 'nil'" do
+    assert_equal false, TimeOfDay.parsable?(nil)
     assert_equal nil, TimeOfDay.try_parse(nil)
     assert_raise(ArgumentError) { TimeOfDay.parse(nil) }
   end
