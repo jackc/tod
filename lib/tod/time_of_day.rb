@@ -113,6 +113,15 @@ module Tod
     #   TimeOfDay.parse "515p"                         # => 17:15:00
     #   TimeOfDay.parse "151253"                       # => 15:12:53
     def self.parse(tod_string)
+      self.try_parse(tod_string) or raise ArgumentError, "Invalid time of day string"
+    end
+
+    # Same as parse(), but return nil if not parsable (instead of raising an error)
+    #   TimeOfDay.try_parse "8am"                      # => 08:00:00
+    #   TimeOfDay.try_parse ""                         # => nil
+    #   TimeOfDay.try_parse "abc"                      # => nil
+    def self.try_parse(tod_string)
+      return nil unless tod_string.present?
       tod_string = tod_string.strip
       tod_string = tod_string.downcase
       if PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string
@@ -125,7 +134,7 @@ module Tod
 
         new hour, minute, second
       else
-        raise ArgumentError, "Invalid time of day string"
+        return nil
       end
     end
 
