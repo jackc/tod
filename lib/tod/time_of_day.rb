@@ -134,7 +134,7 @@ module Tod
 
         new hour, minute, second
       else
-        return nil
+        nil
       end
     end
 
