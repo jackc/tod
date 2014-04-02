@@ -121,7 +121,7 @@ module Tod
     #   TimeOfDay.try_parse ""                         # => nil
     #   TimeOfDay.try_parse "abc"                      # => nil
     def self.try_parse(tod_string)
-      return nil unless tod_string.present?
+      tod_string = tod_string.to_s
       tod_string = tod_string.strip
       tod_string = tod_string.downcase
       if PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string
