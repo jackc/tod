@@ -42,12 +42,16 @@ class TimeOfDayTest < Test::Unit::TestCase
     expected_tod = TimeOfDay.new expected_hour, expected_minute, expected_second
 
     should "parse '#{parse_string}' into #{expected_tod.inspect}" do
+      assert_equal true, TimeOfDay.parsable?(parse_string)
+      assert_equal expected_tod, TimeOfDay.try_parse(parse_string)
       assert_equal expected_tod, TimeOfDay.parse(parse_string)
     end
   end
 
   def self.should_not_parse(parse_string)
     should "not parse '#{parse_string}'" do
+      assert_equal false, TimeOfDay.parsable?(parse_string)
+      assert_equal nil, TimeOfDay.try_parse(parse_string)
       assert_raise(ArgumentError) { TimeOfDay.parse(parse_string) }
     end
   end
@@ -89,6 +93,15 @@ class TimeOfDayTest < Test::Unit::TestCase
   should_not_parse "13a"
   should_not_parse "13p"
   should_not_parse "10.5"
+  should_not_parse "abc"
+  should_not_parse ""
+  should_not_parse []
+
+  should "not parse 'nil'" do
+    assert_equal false, TimeOfDay.parsable?(nil)
+    assert_equal nil, TimeOfDay.try_parse(nil)
+    assert_raise(ArgumentError) { TimeOfDay.parse(nil) }
+  end
 
   should "provide spaceship operator" do
     assert_equal -1, TimeOfDay.new(8,0,0) <=> TimeOfDay.new(9,0,0)
