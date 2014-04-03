@@ -45,6 +45,18 @@ are all optional.
     TimeOfDay.parse "515p"                         # => 17:15:00
     TimeOfDay.parse "151253"                       # => 15:12:53
 
+TimeOfDay.parse raises an ArgumentError is the argument to parse is not
+parsable. TimeOfDay.try_parse will instead return nil if the argument is not
+parsable.
+
+    TimeOfDay.try_parse "3:30pm"                   # => 15:30:00
+    TimeOfDay.try_parse "foo"                      # => nil
+
+Values can be tested with TimeOfDay.parsable? to see if they can be parsed.
+
+    TimeOfDay.parsable? "3:30pm"                   # => true
+    TimeOfDay.parsable? "foo"                      # => false
+
 Adding or subtracting time
 -----------------------------
 
@@ -153,6 +165,11 @@ Tod is compatible with Ruby 1.9.3 and 2.0.0 and Rails 3.0, 3.1, 3.2, and 4.0.
 
 History
 =======
+
+## 1.4.0 (April 3, 2014)
+
+* Add try_parse (Stuart Olivera)
+* Add parse? (Stuart Olivera)
 
 ## 1.3.0 (December 9, 2013)
 
