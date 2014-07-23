@@ -33,6 +33,16 @@ module Tod
       \z
     /x
 
+    PARSE_END_OF_DAY_REGEX = /
+      \A
+      (24)
+      :?
+      (00)?
+      :?
+      (00)?
+      \z
+    /x
+
     NUM_SECONDS_IN_DAY = 86400
     NUM_SECONDS_IN_HOUR = 3600
     NUM_SECONDS_IN_MINUTE = 60
@@ -124,12 +134,16 @@ module Tod
       tod_string = tod_string.to_s
       tod_string = tod_string.strip
       tod_string = tod_string.downcase
-      if PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string
+      if PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string || PARSE_END_OF_DAY_REGEX =~ tod_string
         hour, minute, second, a_or_p = $1.to_i, $2.to_i, $3.to_i, $4
         if hour == 12 && a_or_p == "a"
           hour = 0
         elsif hour < 12 && a_or_p == "p"
           hour += 12
+        end
+
+        if hour == 24
+          hour, minute, second = 23, 59, 59
         end
 
         new hour, minute, second
