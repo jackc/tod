@@ -85,9 +85,9 @@ class TimeOfDayTest < Test::Unit::TestCase
   should_parse "12a",          0, 0, 0
   should_parse "12p",         12, 0, 0
 
+  should_parse "24:00:00",    23,59,59
+
   should_not_parse "-1:30"
-  should_not_parse "24:00:00"
-  should_not_parse "24"
   should_not_parse "00:60"
   should_not_parse "00:00:60"
   should_not_parse "13a"
