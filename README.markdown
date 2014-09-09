@@ -44,6 +44,8 @@ are all optional.
     TimeOfDay.parse "3:25:58"                      # => 03:25:58
     TimeOfDay.parse "515p"                         # => 17:15:00
     TimeOfDay.parse "151253"                       # => 15:12:53
+    TimeOfDay.parse "noon"                         # => 12:00:00
+    TimeOfDay.parse "midnight"                     # => 00:00:00
 
 TimeOfDay.parse raises an ArgumentError is the argument to parse is not
 parsable. TimeOfDay.try_parse will instead return nil if the argument is not

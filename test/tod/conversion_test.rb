@@ -32,5 +32,17 @@ class TimeOfDayConversionTest < Test::Unit::TestCase
 
     assert_equal(tod, TimeOfDay.new(12, 01, 02))
   end
+  should "parse 'noon'" do
+    t   = "noon"
+    tod = TimeOfDay(t)
+
+    assert_equal(tod, TimeOfDay.new(12, 00, 00))
+  end
+  should "parse 'midnight'" do
+    t   = "midnight"
+    tod = TimeOfDay(t)
+
+    assert_equal(tod, TimeOfDay.new(0, 00, 00))
+  end
 
 end
