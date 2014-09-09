@@ -39,6 +39,46 @@ describe "Shift" do
     end
   end
 
+  context "overlaps?" do
+    should "be true when shifts overlap" do
+      shift1 = Shift.new(TimeOfDay.new(12), TimeOfDay.new(18))
+      shift2 = Shift.new(TimeOfDay.new(13), TimeOfDay.new(15))
+      assert_true shift1.overlaps?(shift2)
+    end
+
+    should "be false when shifts don't overlap" do
+      shift1 = Shift.new(TimeOfDay.new(1), TimeOfDay.new(5))
+      shift2 = Shift.new(TimeOfDay.new(9), TimeOfDay.new(12))
+      assert_false shift1.overlaps?(shift2)
+    end
+
+    should "be true when shifts touch" do
+      shift1 = Shift.new(TimeOfDay.new(1), TimeOfDay.new(5))
+      shift2 = Shift.new(TimeOfDay.new(5), TimeOfDay.new(12))
+      assert_true shift1.overlaps?(shift2)
+    end
+  end
+
+  context "contains?" do
+    should "be true when one shift contains another" do
+      outside = Shift.new(TimeOfDay.new(12), TimeOfDay.new(18))
+      inside = Shift.new(TimeOfDay.new(13), TimeOfDay.new(15))
+      assert_true outside.contains?(inside)
+    end
+
+    should "be false when a shift is contained by another" do
+      outside = Shift.new(TimeOfDay.new(12), TimeOfDay.new(18))
+      inside = Shift.new(TimeOfDay.new(13), TimeOfDay.new(15))
+      assert_false inside.contains?(outside)
+    end
+
+    should "be false when shifts don't even overlap" do
+      shift1 = Shift.new(TimeOfDay.new(12), TimeOfDay.new(15))
+      shift2 = Shift.new(TimeOfDay.new(18), TimeOfDay.new(19))
+      assert_false shift1.contains?(shift2)
+    end
+  end
+
   describe "#include?" do
     # |------------------------|--------T1----V----T2----|------------------------|
     it "is true when value is between ToDs and boths tods are in the same day" do

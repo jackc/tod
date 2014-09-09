@@ -31,6 +31,17 @@ module Tod
       @range.cover?(second)
     end
 
+    def overlaps?(shift)
+      self.include?(shift.beginning) || 
+        self.include?(shift.ending) || 
+        shift.include?(self.beginning) ||
+        shift.include?(self.ending)
+    end
+
+    def contains?(shift)
+      self.include?(shift.beginning) && self.include?(shift.ending)
+    end
+
     # Return shift duration in seconds.
     # if ending is lower than beginning this method will calculate the duration as the ending time is from the following day
     def duration
