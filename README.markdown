@@ -122,22 +122,22 @@ it supposes the shift ends the following day.
 Creating from TimeOfDay
 --------------------------------------
 
-    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17))
-    Shift.new(TimeOfDay.new(22), TimeOfDay.new(4))
+    Tod::Shift.new(TimeOfDay.new(9), TimeOfDay.new(17))
+    Tod::Shift.new(TimeOfDay.new(22), TimeOfDay.new(4))
 
 Duration
 --------------------
 
-    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).duration # => 28800
-    Shift.new(TimeOfDay.new(20), TimeOfDay.new(2)).duration # => 21600
+    Tod::Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).duration # => 28800
+    Tod::Shift.new(TimeOfDay.new(20), TimeOfDay.new(2)).duration # => 21600
 
 Include?
 --------------------
 
-    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).include?(TimeOfDay.new(12)) # => true
-    Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).include?(TimeOfDay.new(7))  # => false
-    Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(2))  # => true
-    Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(18)) # => false
+    Tod::Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).include?(TimeOfDay.new(12)) # => true
+    Tod::Shift.new(TimeOfDay.new(9), TimeOfDay.new(17)).include?(TimeOfDay.new(7))  # => false
+    Tod::Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(2))  # => true
+    Tod::Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(18)) # => false
 
 Rails Time Zone Support
 =======================
