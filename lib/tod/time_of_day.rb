@@ -7,6 +7,12 @@ module Tod
     alias_method :sec, :second
     alias_method :to_i, :second_of_day
 
+    PARSE_EOD_REGEX = /
+      \A
+      (24):?(00)?:?(00)?
+      \z
+    /x
+
     PARSE_24H_REGEX = /
       \A
       ([01]?\d|2[0-3])
@@ -35,7 +41,9 @@ module Tod
 
     WORDS = {
       "noon" => "12pm",
-      "midnight" => "12am"
+      "midnight" => "12am",
+      "end_of_day" => "24:00:00",
+      "beginning_of_day" => "00:00:00"
     }
 
     NUM_SECONDS_IN_DAY = 86400
@@ -47,9 +55,11 @@ module Tod
       @minute = Integer(m)
       @second = Integer(s)
 
-      raise ArgumentError, "hour must be between 0 and 23" unless (0..23).include?(@hour)
-      raise ArgumentError, "minute must be between 0 and 59" unless (0..59).include?(@minute)
-      raise ArgumentError, "second must be between 0 and 59" unless (0..59).include?(@second)
+      unless [24,0,0] == [h, m, s]
+        raise ArgumentError, "hour must be between 0 and 23" unless (0..23).include?(@hour)
+        raise ArgumentError, "minute must be between 0 and 59" unless (0..59).include?(@minute)
+        raise ArgumentError, "second must be between 0 and 59" unless (0..59).include?(@second)
+      end
 
       @second_of_day = @hour * 60 * 60 + @minute * 60 + @second
 
@@ -66,7 +76,15 @@ module Tod
     end
 
     def to_s
-      strftime "%H:%M:%S"
+      if @num_seconds == NUM_SECONDS_IN_DAY
+        "24:00:00"
+      else
+        strftime "%H:%M:%S"
+      end
+    end
+
+    def to_time_of_day
+      self
     end
 
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
@@ -91,12 +109,16 @@ module Tod
     #
     #   TimeOfDay.from_second_of_day(3600) == TimeOfDay.new(1)   # => true
     def self.from_second_of_day(second_of_day)
-      remaining_seconds = second_of_day % NUM_SECONDS_IN_DAY
-      hour = remaining_seconds / NUM_SECONDS_IN_HOUR
-      remaining_seconds -= hour * NUM_SECONDS_IN_HOUR
-      minute = remaining_seconds / NUM_SECONDS_IN_MINUTE
-      remaining_seconds -= minute * NUM_SECONDS_IN_MINUTE
-      new hour, minute, remaining_seconds
+      if second_of_day == NUM_SECONDS_IN_DAY
+        new 24, 0, 0
+      else
+        remaining_seconds = second_of_day % NUM_SECONDS_IN_DAY
+        hour = remaining_seconds / NUM_SECONDS_IN_HOUR
+        remaining_seconds -= hour * NUM_SECONDS_IN_HOUR
+        minute = remaining_seconds / NUM_SECONDS_IN_MINUTE
+        remaining_seconds -= minute * NUM_SECONDS_IN_MINUTE
+        new hour, minute, remaining_seconds
+      end
     end
     class << self
       alias :from_i :from_second_of_day
@@ -130,7 +152,7 @@ module Tod
       tod_string = tod_string.strip
       tod_string = tod_string.downcase
       tod_string = WORDS[tod_string] || tod_string
-      if PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string
+      if PARSE_EOD_REGEX =~ tod_string || PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string
         hour, minute, second, a_or_p = $1.to_i, $2.to_i, $3.to_i, $4
         if hour == 12 && a_or_p == "a"
           hour = 0

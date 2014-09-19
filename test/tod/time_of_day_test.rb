@@ -5,7 +5,12 @@ class TimeOfDayTest < Test::Unit::TestCase
   context "initialize" do
     should "block invalid hours" do
       assert_raise(ArgumentError) { TimeOfDay.new -1 }
-      assert_raise(ArgumentError) { TimeOfDay.new 24 }
+      assert_raise(ArgumentError) { TimeOfDay.new 25 }
+    end
+
+    should "only allow 24 when it represents the end of day" do
+      assert_raise(ArgumentError) { TimeOfDay.new 24, 0, 1 }
+      assert_nothing_raised { TimeOfDay.new 24, 0, 0 }
     end
 
     should "block invalid minutes" do
@@ -85,9 +90,10 @@ class TimeOfDayTest < Test::Unit::TestCase
   should_parse "12a",          0, 0, 0
   should_parse "12p",         12, 0, 0
 
+  should_parse "24:00:00",    24, 0, 0
+  should_parse "end_of_day",  24, 0, 0
+
   should_not_parse "-1:30"
-  should_not_parse "24:00:00"
-  should_not_parse "24"
   should_not_parse "00:60"
   should_not_parse "00:00:60"
   should_not_parse "13a"
@@ -184,12 +190,15 @@ class TimeOfDayTest < Test::Unit::TestCase
       assert_equal TimeOfDay.new(23,59,59), TimeOfDay.from_second_of_day(86399)
     end
 
-    should "handle positive numbers a day or more away" do
-      assert_equal TimeOfDay.new(0,0,0), TimeOfDay.from_second_of_day(86400)
+    should "handle positive numbers more than a day away" do
       assert_equal TimeOfDay.new(0,0,30), TimeOfDay.from_second_of_day(86430)
       assert_equal TimeOfDay.new(0,1,30), TimeOfDay.from_second_of_day(86490)
       assert_equal TimeOfDay.new(1,1,5), TimeOfDay.from_second_of_day(90065)
       assert_equal TimeOfDay.new(23,59,59), TimeOfDay.from_second_of_day(172799)
+    end
+
+    should "handle 24" do
+      assert_equal TimeOfDay.new(24,0,0), TimeOfDay.from_second_of_day(86400)
     end
 
     should "handle negative numbers" do
