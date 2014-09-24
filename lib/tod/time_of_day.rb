@@ -87,6 +87,10 @@ module Tod
       self
     end
 
+    def on_date(date)
+      date.to_date.to_time + to_i
+    end
+
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
     def +(num_seconds)
