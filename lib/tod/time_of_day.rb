@@ -76,7 +76,7 @@ module Tod
     end
 
     def to_s
-      if @num_seconds == NUM_SECONDS_IN_DAY
+      if @second_of_day == NUM_SECONDS_IN_DAY
         "24:00:00"
       else
         strftime "%H:%M:%S"
