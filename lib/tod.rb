@@ -5,9 +5,10 @@ require 'tod/shift'
 require 'tod/conversions'
 require 'tod/mongoization'
 
-include Tod
+class Shift < Tod::Shift; end unless defined? Shift
+
 include Tod::Conversions
-class TimeOfDay
+class TimeOfDay < Tod::TimeOfDay
   include(Tod::Mongoization)
   extend(Tod::Mongoization::ClassMethods)
 end
