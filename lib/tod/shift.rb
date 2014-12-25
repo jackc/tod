@@ -23,7 +23,7 @@ module Tod
     end
     
     # Returns true if the time of day is inside the shift (exclusive range), false otherwise
-    def include_without_borers?(tod)
+    def include_without_borders?(tod)
       if ending >= beginning
         tod > beginning && tod < ending
       else
