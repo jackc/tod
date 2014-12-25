@@ -21,6 +21,17 @@ module Tod
         (tod >= beginning && tod <= end_of_day) || (tod >= start_of_day && tod <= ending)
       end
     end
+    
+    # Returns true if the time of day is inside the shift (exclusive range), false otherwise
+    def include_without_borers?(tod)
+      if ending >= beginning
+        tod > beginning && tod < ending
+      else
+        start_of_day   = TimeOfDay.new(0,0,0)
+        end_of_day     = TimeOfDay.new(23,59,59)
+        (tod > beginning && tod <= end_of_day) || (tod >= start_of_day && tod < ending)
+      end
+    end
 
     # Return shift duration in seconds.
     # if ending is lower than beginning this method will calculate the duration as the ending time is from the following day
