@@ -57,7 +57,7 @@ module Tod
     end
 
     def <=>(other)
-      return unless other.respond_to(:second_of_day)
+      return unless other.respond_to?(:second_of_day)
       @second_of_day <=> other.second_of_day
     end
 
