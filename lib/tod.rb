@@ -5,9 +5,8 @@ require 'tod/shift'
 require 'tod/conversions'
 require 'tod/mongoization'
 
-include Tod
 include Tod::Conversions
-class TimeOfDay
+class TimeOfDay < Tod::TimeOfDay
   include(Tod::Mongoization)
   extend(Tod::Mongoization::ClassMethods)
 end
