@@ -1,6 +1,8 @@
 # Unreleased
 
 * Shift now supports exclusive ends like a Ruby range
+* Add Shift#overlaps? (Michael Amor Righi)
+* Add Shift#contains? (Michael Amor Righi)
 * Do not pollute global namespace
 
 # 1.5.0 (January 15, 2015)
