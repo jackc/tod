@@ -165,42 +165,6 @@ Compatibility
 Tod is compatible with Ruby 1.9.3 and 2.0.0 and Rails 3.0, 3.1, 3.2, and 4.0.
 
 
-History
-=======
-
-## 1.4.0 (April 3, 2014)
-
-* Add try_parse (Stuart Olivera)
-* Add parse? (Stuart Olivera)
-
-## 1.3.0 (December 9, 2013)
-
-* Add Shift class (Pablo Russo)
-
-## 1.2.2 (November 16, 2013)
-
-* Fix dumping nil or empty string to PostgreSQL time column (Maik Arnold)
-
-## 1.2.1 (September 30, 2013)
-
-* Added DateTime#to_time_of_day (Jonathan Pares)
-
-## 1.2.0 (July 16, 2013)
-
-* Added ActiveRecord TimeOfDay serialization to time column (Maxim-Filimonov)
-
-## 1.1.1 (April 12, 2013)
-
-* Added to_i and from_i as aliases of second_of_day and from_second_of_day (Johnny Shields)
-
-## 1.1.0 (February 13, 2013)
-
-* Added Rails time zone support
-
-## 1.0.0 (December 29, 2010)
-
-* Initial Release
-
 License
 =======
 
