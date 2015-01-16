@@ -1,3 +1,5 @@
+require 'tod/time_of_day'
+
 module Tod
   module Mongoization
 
@@ -32,5 +34,12 @@ module Tod
         end
       end
     end
+  end
+end
+
+module Tod
+  class TimeOfDay
+    include(Tod::Mongoization)
+    extend(Tod::Mongoization::ClassMethods)
   end
 end
