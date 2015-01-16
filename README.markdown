@@ -119,9 +119,13 @@ Tod provides a conversion method which will handle a variety of input types:
 Shifts
 =======================
 
-Represents a period of time, using a beginning and ending Tod::TimeOfDay. Allows to calculate its duration and
-to determine if a Tod::TimeOfDay is included inside the shift. For nightly shifts (when beginning time is greater than ending time),
-it supposes the shift ends the following day.
+Tod::Shift is a range-like object that represents a period of time, using a
+beginning and ending Tod::TimeOfDay. Allows to calculate its duration and to
+determine if a Tod::TimeOfDay is included inside the shift. For nightly shifts
+(when beginning time is greater than ending time), it supposes the shift ends
+the following day. Tod::Shift behaves like a Ruby range in that it defaults to
+inclusive endings. For exclusive endings, pass true as the third argument
+(like a Ruby range).
 
 Creating from Tod::TimeOfDay
 --------------------------------------
@@ -142,6 +146,11 @@ Include?
     Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(17)).include?(Tod::TimeOfDay.new(7))  # => false
     Tod::Shift.new(Tod::TimeOfDay.new(20), Tod::TimeOfDay.new(4)).include?(Tod::TimeOfDay.new(2))  # => true
     Tod::Shift.new(Tod::TimeOfDay.new(20), Tod::TimeOfDay.new(4)).include?(Tod::TimeOfDay.new(18)) # => false
+
+#include? respects exclusive endings.
+
+    Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(9)).include?(Tod::TimeOfDay.new(9)) # => true
+    Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(9), true).include?(Tod::TimeOfDay.new(9)) # => false
 
 Rails Time Zone Support
 =======================

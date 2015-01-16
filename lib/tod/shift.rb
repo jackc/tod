@@ -1,39 +1,44 @@
 module Tod
+
+  # Shift is a range-like class that handles wrapping around midnight.
+  # For example, the Shift of 2300 to 0200 would include 0100.
   class Shift
     attr_reader :beginning, :ending
 
-    def initialize(beginning, ending)
+    def initialize(beginning, ending, exclude_end=false)
       raise ArgumentError, "beginning can not be nil" unless beginning
       raise ArgumentError, "ending can not be nil" unless ending
+      unless [true, false].include? exclude_end
+        raise ArgumentError, "exclude_end must be true or false"
+      end
 
       @beginning = beginning
       @ending = ending
+      @exclude_end = exclude_end
+
+      normalized_ending = ending.to_i
+      normalized_ending += TimeOfDay::NUM_SECONDS_IN_DAY if normalized_ending < beginning.to_i
+
+      @range = Range.new(beginning.to_i, normalized_ending, @exclude_end)
+
       freeze # Shift instances are value objects
     end
 
-    # Returns true if the time of day is inside the shift (inclusive range), false otherwise
+    # Returns true if the time of day is inside the shift, false otherwise.
     def include?(tod)
-      if ending >= beginning
-        tod >= beginning && tod <= ending
-      else
-        start_of_day   = TimeOfDay.new(0,0,0)
-        end_of_day     = TimeOfDay.new(23,59,59)
-        (tod >= beginning && tod <= end_of_day) || (tod >= start_of_day && tod <= ending)
-      end
+      second = tod.to_i
+      second += TimeOfDay::NUM_SECONDS_IN_DAY if second < @range.first
+      @range.cover?(second)
     end
 
     # Return shift duration in seconds.
     # if ending is lower than beginning this method will calculate the duration as the ending time is from the following day
     def duration
-      if ending >= beginning
-        (ending.to_i - beginning.to_i)
-      else
-        start_of_day   = TimeOfDay.new(0,0,0)
-        end_of_day     = TimeOfDay.new(23,59,59)
-        duration_day_1 = (end_of_day.to_i - beginning.to_i) + 1
-        duration_day_2 = (ending.to_i - start_of_day.to_i)
-        duration_day_1 + duration_day_2
-      end
+      @range.last - @range.first
+    end
+
+    def exclude_end?
+      @exclude_end
     end
   end
 end
