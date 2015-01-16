@@ -161,6 +161,15 @@ order = Order.create(time: Tod::TimeOfDay.new(9,30))
 order.time                                      # => 09:30:00
 ```
 
+MongoDB Support
+===============
+
+Tod includes optional serialization support for Tod::TimeOfDay to be serialized to MongoDB.
+
+```
+require 'tod/mongoization'
+```
+
 Upgrading from Versions Prior to 2.0.0
 ======================================
 
@@ -181,6 +190,12 @@ tod = Tod::TimeOfDay.new 8, 30                  # => 08:30:00
 Date.today.at tod                               # => 2010-12-29 08:30:00 -0600
 Time.now.to_time_of_day                         # => 16:30:43
 DateTime.now.to_time_of_day                     # => 16:30:43
+```
+
+Tod no longer automatically includes MongoDB serialization methods in Tod::TimeOfDay. Require them explicitly.
+
+```
+require 'tod/mongoization'
 ```
 
 Compatibility
