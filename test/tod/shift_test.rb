@@ -52,10 +52,16 @@ describe "Shift" do
       refute shift1.overlaps?(shift2)
     end
 
-    it "is true when shifts touch" do
+    it "is true when shifts touch with inclusive end" do
       shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5))
       shift2 = Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(12))
       assert shift1.overlaps?(shift2)
+    end
+
+    it "is false when shifts touch with exclusive end" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5), true)
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(12), true)
+      refute shift1.overlaps?(shift2)
     end
   end
 

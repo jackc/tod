@@ -3,7 +3,7 @@ module Tod
   # Shift is a range-like class that handles wrapping around midnight.
   # For example, the Shift of 2300 to 0200 would include 0100.
   class Shift
-    attr_reader :beginning, :ending
+    attr_reader :beginning, :ending, :range
 
     def initialize(beginning, ending, exclude_end=false)
       raise ArgumentError, "beginning can not be nil" unless beginning
@@ -31,11 +31,11 @@ module Tod
       @range.cover?(second)
     end
 
-    def overlaps?(shift)
-      self.include?(shift.beginning) || 
-        self.include?(shift.ending) || 
-        shift.include?(self.beginning) ||
-        shift.include?(self.ending)
+    # Returns true if ranges overlap, false otherwise.
+    def overlaps?(other)
+      a, b = [self, other].map(&:range).sort_by(&:first)
+      op = a.exclude_end? ? :> : :>=
+      a.last.send(op, b.first)
     end
 
     def contains?(shift)
