@@ -155,13 +155,19 @@ Include?
 
 Overlap?
 --------------------
-    breakfast = Shift.new(TimeOfDay.new(8), TimeOfDay.new(11))
-    lunch = Shift.new(TimeOfDay.new(10), TimeOfDay.new(14))
+
+    breakfast = Tod::Shift.new(Tod::TimeOfDay.new(8), Tod::TimeOfDay.new(11))
+    lunch = Tod::Shift.new(Tod::TimeOfDay.new(10), Tod::TimeOfDay.new(14))
     breakfast.overlaps?(lunch) # => true
     lunch.overlaps?(breakfast) # => true
 
-    dinner = Shift.new(TimeOfDay.new(18), TimeOfDay.new(20))
+    dinner = Tod::Shift.new(Tod::TimeOfDay.new(18), Tod::TimeOfDay.new(20))
     dinner.overlaps?(lunch) # => false
+
+    # Exclude ending
+    morning_shift = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(17), true)
+    evening_shift = Tod::Shift.new(Tod::TimeOfDay.new(17), Tod::TimeOfDay.new(1), true)
+    morning_shift.overlaps?(evening_shift) # => false
 
 
 Contains?
