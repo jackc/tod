@@ -1,6 +1,5 @@
 require 'tod/time_of_day'
-require 'tod/date'
-require 'tod/time'
+require 'tod/core_extensions'
 require 'tod/shift'
 require 'tod/conversions'
 require 'tod/mongoization'
