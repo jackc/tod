@@ -39,43 +39,43 @@ describe "Shift" do
     end
   end
 
-  context "overlaps?" do
-    should "be true when shifts overlap" do
-      shift1 = Shift.new(TimeOfDay.new(12), TimeOfDay.new(18))
-      shift2 = Shift.new(TimeOfDay.new(13), TimeOfDay.new(15))
-      assert_true shift1.overlaps?(shift2)
+  describe "overlaps?" do
+    it "is true when shifts overlap" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(12), Tod::TimeOfDay.new(18))
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(13), Tod::TimeOfDay.new(15))
+      assert shift1.overlaps?(shift2)
     end
 
-    should "be false when shifts don't overlap" do
-      shift1 = Shift.new(TimeOfDay.new(1), TimeOfDay.new(5))
-      shift2 = Shift.new(TimeOfDay.new(9), TimeOfDay.new(12))
-      assert_false shift1.overlaps?(shift2)
+    it "is false when shifts don't overlap" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5))
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(12))
+      refute shift1.overlaps?(shift2)
     end
 
-    should "be true when shifts touch" do
-      shift1 = Shift.new(TimeOfDay.new(1), TimeOfDay.new(5))
-      shift2 = Shift.new(TimeOfDay.new(5), TimeOfDay.new(12))
-      assert_true shift1.overlaps?(shift2)
+    it "is true when shifts touch" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5))
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(12))
+      assert shift1.overlaps?(shift2)
     end
   end
 
-  context "contains?" do
-    should "be true when one shift contains another" do
-      outside = Shift.new(TimeOfDay.new(12), TimeOfDay.new(18))
-      inside = Shift.new(TimeOfDay.new(13), TimeOfDay.new(15))
-      assert_true outside.contains?(inside)
+  describe "contains?" do
+    it "is true when one shift contains another" do
+      outside = Tod::Shift.new(Tod::TimeOfDay.new(12), Tod::TimeOfDay.new(18))
+      inside = Tod::Shift.new(Tod::TimeOfDay.new(13), Tod::TimeOfDay.new(15))
+      assert outside.contains?(inside)
     end
 
-    should "be false when a shift is contained by another" do
-      outside = Shift.new(TimeOfDay.new(12), TimeOfDay.new(18))
-      inside = Shift.new(TimeOfDay.new(13), TimeOfDay.new(15))
-      assert_false inside.contains?(outside)
+    it "is false when a shift is contained by another" do
+      outside = Tod::Shift.new(Tod::TimeOfDay.new(12), Tod::TimeOfDay.new(18))
+      inside = Tod::Shift.new(Tod::TimeOfDay.new(13), Tod::TimeOfDay.new(15))
+      refute inside.contains?(outside)
     end
 
-    should "be false when shifts don't even overlap" do
-      shift1 = Shift.new(TimeOfDay.new(12), TimeOfDay.new(15))
-      shift2 = Shift.new(TimeOfDay.new(18), TimeOfDay.new(19))
-      assert_false shift1.contains?(shift2)
+    it "is false when shifts don't even overlap" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(12), Tod::TimeOfDay.new(15))
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(18), Tod::TimeOfDay.new(19))
+      refute shift1.contains?(shift2)
     end
   end
 
