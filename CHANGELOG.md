@@ -1,3 +1,7 @@
+# Unreleased
+
+* Do not pollute global namespace
+
 # 1.5.0 (January 15, 2015)
 
 * Fix: return nil unless other is comparable (Peter Yates)

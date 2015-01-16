@@ -37,5 +37,3 @@ module Tod
     end
   end
 end
-
-Shift = Tod::Shift

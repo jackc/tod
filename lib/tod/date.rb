@@ -6,6 +6,6 @@ class Date
   end
 
   def to_time_of_day
-    TimeOfDay.new hour, minute, second
+    Tod::TimeOfDay.new hour, minute, second
   end
 end

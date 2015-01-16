@@ -6,7 +6,7 @@ require File.expand_path(File.join(File.dirname(__FILE__),'..','test_helper'))
 class AAATimeOfDayWithoutActiveSupportTest < Test::Unit::TestCase
   context "self.time_zone" do
     should "be Time" do
-      assert_equal Time, TimeOfDay.time_zone
+      assert_equal Time, Tod::TimeOfDay.time_zone
     end
   end
 end
