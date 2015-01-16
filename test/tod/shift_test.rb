@@ -36,7 +36,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 16
       value = Tod::TimeOfDay.new 12
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), true
+      assert shift.include?(value)
     end
 
     # |------------------T1----|-------V----------T2-----|------------------------|
@@ -45,7 +45,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 15
       value = Tod::TimeOfDay.new 12
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), true
+      assert shift.include?(value)
     end
 
     # |------------------T1--V-|------------------T2-----|------------------------|
@@ -54,7 +54,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 15
       value = Tod::TimeOfDay.new 22
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), true
+      assert shift.include?(value)
     end
 
     # |------------------------|--------T1----------V----|----T2------------------|
@@ -63,7 +63,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 4
       value = Tod::TimeOfDay.new 20
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), true
+      assert shift.include?(value)
     end
 
     # |------------------------|--------T1---------------|--V---T2----------------|
@@ -72,7 +72,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 4
       value = Tod::TimeOfDay.new 2
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), true
+      assert shift.include?(value)
     end
 
     # |------------------------|--------T1-----T2----V---|------------------------|
@@ -81,7 +81,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 16
       value = Tod::TimeOfDay.new 20
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), false
+      refute shift.include?(value)
     end
 
     # |------------------------|--V-----T1-----T2--------|------------------------|
@@ -90,7 +90,7 @@ describe "Shift" do
       tod2  = Tod::TimeOfDay.new 16
       value = Tod::TimeOfDay.new 8
       shift = Tod::Shift.new tod1, tod2
-      assert_equal shift.include?(value), false
+      refute shift.include?(value)
     end
   end
 end
