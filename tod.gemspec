@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/JackC/tod"
   s.summary     = %q{Supplies TimeOfDay and Shift class}
   s.description = %q{Supplies TimeOfDay and Shift class that includes parsing, strftime, comparison, and arithmetic.}
+  s.license     = 'MIT'
 
   s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
