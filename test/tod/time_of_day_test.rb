@@ -1,5 +1,4 @@
 require File.expand_path(File.join(File.dirname(__FILE__),'..','test_helper'))
-require 'active_support/time'
 
 describe "TimeOfDay" do
   describe "#initialize" do
