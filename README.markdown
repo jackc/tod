@@ -92,11 +92,15 @@ Format strings are passed to Time#strftime.
 Convenience methods for dates and times
 ---------------------------------------
 
-Tod adds Date#on and Time#to_time_of_day. If you do not want the core extensions
-then require 'tod/time_of_day' instead of 'tod'.
+Pass a date to Tod::TimeOfDay#on and it will return a time with that date and time.
 
     tod = Tod::TimeOfDay.new 8, 30                  # => 08:30:00
     tod.on Date.today                               # => 2010-12-29 08:30:00 -0600
+
+Tod offers Date#at and Time#to_time_of_day. Require 'tod/core_extensions' to enable.
+
+    require 'tod/core_extensions'
+    tod = Tod::TimeOfDay.new 8, 30                  # => 08:30:00
     Date.today.at tod                               # => 2010-12-29 08:30:00 -0600
     Time.now.to_time_of_day                         # => 16:30:43
     DateTime.now.to_time_of_day                     # => 16:30:43
@@ -160,11 +164,23 @@ order.time                                      # => 09:30:00
 Upgrading from Versions Prior to 2.0.0
 ======================================
 
+Tod has a new focus on not polluting the global namespace.
+
 Tod no longer puts Tod::TimeOfDay and Tod::Shift in the global namespace by default. You can either fully qualify access to these classes or include Tod in the global namespace.
 
 ```
 require 'tod'
 include Tod # TimeOfDay and Shift are now in the global namespace like in versions prior to 2.0.0
+```
+
+Tod no longer automatically extends the Time and Date classes. Require them explicitly.
+
+```
+require 'tod/core_extensions'
+tod = Tod::TimeOfDay.new 8, 30                  # => 08:30:00
+Date.today.at tod                               # => 2010-12-29 08:30:00 -0600
+Time.now.to_time_of_day                         # => 16:30:43
+DateTime.now.to_time_of_day                     # => 16:30:43
 ```
 
 Compatibility
