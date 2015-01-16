@@ -35,7 +35,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (>= 3.0.0)
-  minitest (~> 5.5)
+  minitest
   rake
   sqlite3
   tod!

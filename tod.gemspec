@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = %q{Supplies TimeOfDay and Shift class that includes parsing, strftime, comparison, and arithmetic.}
   s.license     = 'MIT'
 
-  s.add_development_dependency "minitest", "~> 5.5"
+  s.add_development_dependency "minitest"
   s.add_development_dependency "tzinfo"
   s.add_development_dependency "rake"
   s.add_development_dependency "activerecord", ">= 3.0.0"
