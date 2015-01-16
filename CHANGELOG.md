@@ -1,3 +1,8 @@
+# 1.5.0 (January 15, 2015)
+
+* Fix: return nil unless other is comparable (Peter Yates)
+* Parse "noon" as "12pm" and "midnight" as "12am" (Michael Righi)
+
 # 1.4.0 (April 3, 2014)
 
 * Add try_parse (Stuart Olivera)
