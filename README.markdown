@@ -178,4 +178,4 @@ Tod is compatible with Ruby 1.9.3, 2.0.0, 2.1.8, and 2.2.0. It is tested against
 License
 =======
 
-Copyright (c) 2010-2013 Jack Christensen, released under the MIT license
+Copyright (c) 2010-2015 Jack Christensen, released under the MIT license
