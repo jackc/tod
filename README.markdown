@@ -160,9 +160,9 @@ order.time                                      # => 09:30:00
 Compatibility
 =============
 
-[![Build Status](https://travis-ci.org/JackC/tod.png)](https://travis-ci.org/JackC/tod)
+[![Build Status](https://travis-ci.org/jackc/tod.png)](https://travis-ci.org/jackc/tod)
 
-Tod is compatible with Ruby 1.9.3 and 2.0.0 and Rails 3.0, 3.1, 3.2, and 4.0.
+Tod is compatible with Ruby 1.9.3, 2.0.0, 2.1.8, and 2.2.0. It is tested against Rails 3.2, 4.0, 4.1, 4.2.
 
 
 License
