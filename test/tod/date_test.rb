@@ -1,16 +1,16 @@
 require File.expand_path(File.join(File.dirname(__FILE__),'..','test_helper'))
 require 'active_support/time'
 
-class DateTest < Test::Unit::TestCase
-  context "at" do
-    should "accept TimeOfDay and return Time on same date" do
+describe "Date extensions" do
+  describe "#at" do
+    it "accepts TimeOfDay and return Time on same date" do
       date = Date.civil 2000,1,1
       tod = Tod::TimeOfDay.new 8,30
       assert_equal Time.local(2000,1,1, 8,30), date.at(tod)
     end
 
-    context "with a time zone" do
-      should "accept TimeOfDay and TimeWithZone on same date" do
+    describe "with a time zone" do
+      it "accepts TimeOfDay and TimeWithZone on same date" do
         date = Date.civil 2000,1,1
         tod = Tod::TimeOfDay.new 8,30
         time_zone = ActiveSupport::TimeZone['Eastern Time (US & Canada)']
@@ -19,8 +19,8 @@ class DateTest < Test::Unit::TestCase
     end
   end
 
-  context "to_time_day" do
-    should "be TimeOfDay" do
+  describe "#to_time_day" do
+    it "is TimeOfDay" do
       date_time = DateTime.new 2013, 9, 19, 15, 17, 34
       assert_equal Tod::TimeOfDay.new(15, 17, 34), date_time.to_time_of_day
     end
