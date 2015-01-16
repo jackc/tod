@@ -204,7 +204,7 @@ describe "TimeOfDay" do
 
   describe "on" do
     it "is local Time on given date" do
-      assert_equal Time.local(2010,12,29, 8,30), Tod::TimeOfDay.new(8,30).on(Date.civil(2010,12,29))
+      assert_equal Time.zone.local(2010,12,29, 8,30), Tod::TimeOfDay.new(8,30).on(Date.civil(2010,12,29))
     end
 
     describe "with a time zone" do

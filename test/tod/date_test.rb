@@ -5,7 +5,7 @@ describe "Date extensions" do
     it "accepts TimeOfDay and return Time on same date" do
       date = Date.civil 2000,1,1
       tod = Tod::TimeOfDay.new 8,30
-      assert_equal Time.local(2000,1,1, 8,30), date.at(tod)
+      assert_equal Time.zone.local(2000,1,1, 8,30), date.at(tod)
     end
 
     describe "with a time zone" do
