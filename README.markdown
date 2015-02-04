@@ -139,6 +139,29 @@ Include?
     Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(2))  # => true
     Shift.new(TimeOfDay.new(20), TimeOfDay.new(4)).include?(TimeOfDay.new(18)) # => false
 
+
+Overlap?
+--------------------
+    breakfast = Shift.new(TimeOfDay.new(8), TimeOfDay.new(11))
+    lunch = Shift.new(TimeOfDay.new(10), TimeOfDay.new(14))
+    breakfast.overlaps?(lunch) # => true
+    lunch.overlaps?(breakfast) # => true
+
+    dinner = Shift.new(TimeOfDay.new(18), TimeOfDay.new(20))
+    dinner.overlaps?(lunch) # => false
+
+
+Contains?
+--------------------
+    workday = Shift.new(TimeOfDay.new(9), TimeOfDay.new(17))
+    lunch = Shift.new(TimeOfDay.new(10), TimeOfDay.new(14))
+    workday.contains?(lunch) # => true
+    lunch.contains?(workday) # => false
+
+    dinner = Shift.new(TimeOfDay.new(18), TimeOfDay.new(20))
+    dinner.overlaps?(lunch) # => false
+
+
 Rails Time Zone Support
 =======================
 
