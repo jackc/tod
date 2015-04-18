@@ -1,4 +1,4 @@
-# Unreleased
+# 2.0.0 (April 18, 2015)
 
 * Shift now supports exclusive ends like a Ruby range
 * Add Shift#overlaps? (Michael Amor Righi)
