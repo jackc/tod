@@ -47,7 +47,7 @@ are all optional.
     Tod::TimeOfDay.parse "noon"                         # => 12:00:00
     Tod::TimeOfDay.parse "midnight"                     # => 00:00:00
 
-Tod::TimeOfDay.parse raises an ArgumentError is the argument to parse is not
+Tod::TimeOfDay.parse raises an ArgumentError if the argument to parse is not
 parsable. Tod::TimeOfDay.try_parse will instead return nil if the argument is not
 parsable.
 
@@ -188,7 +188,7 @@ If Rails time zone support is loaded, Date#on and Tod::TimeOfDay#at will automat
 
 Active Record Serializable Attribute Support
 =======================
-Tod::TimeOfDay implements a custom serialization contract for activerecord serialize which allows to store Tod::TimeOfDay directly
+Tod::TimeOfDay implements a custom serialization contract for ActiveRecord serialize which allows to store Tod::TimeOfDay directly
 in a column of the time type.
 Example:
 ```ruby
