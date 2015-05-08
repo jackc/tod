@@ -5,5 +5,6 @@ require 'active_support/time'
 require 'tod'
 require 'tod/core_extensions'
 require 'minitest/autorun'
+require 'pry'
 
 Time.zone = "Central Time (US & Canada)"
