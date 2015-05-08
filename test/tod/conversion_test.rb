@@ -29,6 +29,38 @@ describe "TimeOfDay()" do
     assert_equal(tod, Tod::TimeOfDay.new(12, 01, 02))
   end
 
+  describe "without core extensions" do
+    it "handles Time" do
+      t   = Time.new(2014, 2, 27, 12, 01, 02)
+      class <<t
+        undef_method(:to_time_of_day)
+      end
+      tod = Tod::TimeOfDay(t)
+
+      assert_equal(tod, Tod::TimeOfDay.new(12, 01, 02))
+    end
+
+    it "handles Date" do
+      t   = Date.new(2014, 2, 27)
+      class <<t
+        undef_method(:to_time_of_day)
+      end
+      tod = Tod::TimeOfDay(t)
+
+      assert_equal(tod, Tod::TimeOfDay.new(0, 0, 0))
+    end
+
+    it "handles DateTime" do
+      t   = DateTime.new(2014, 2, 27, 12, 01, 02)
+      class <<t
+        undef_method(:to_time_of_day)
+      end
+      tod = Tod::TimeOfDay(t)
+
+      assert_equal(tod, Tod::TimeOfDay.new(12, 01, 02))
+    end
+  end
+
   it "parses string" do
     t   = "12:01:02"
     tod = Tod::TimeOfDay(t)
