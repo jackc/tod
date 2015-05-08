@@ -1,3 +1,7 @@
+# 2.0.1 (May 8, 2015)
+
+* Fix Tod::TimeOfDay() without core extensions
+
 # 2.0.0 (April 18, 2015)
 
 * Shift now supports exclusive ends like a Ruby range
