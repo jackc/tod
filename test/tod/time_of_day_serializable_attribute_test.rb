@@ -20,7 +20,6 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
     it "loads set time" do
       time_of_day = Tod::TimeOfDay.new(9, 30)
       order = Order.create!(time: time_of_day)
-      binding.pry
       order.reload
       assert_equal order.time, time_of_day
     end
