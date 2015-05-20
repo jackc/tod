@@ -2,7 +2,7 @@ module Tod
   class TimeOfDay
     include Comparable
 
-    attr_reader :hour, :minute, :second, :second_of_day
+    attr_reader :hour, :minute, :second, :second_of_day, :day, :month, :year
     alias_method :min, :minute
     alias_method :sec, :second
     alias_method :to_i, :second_of_day
@@ -46,6 +46,9 @@ module Tod
       @hour = Integer(h)
       @minute = Integer(m)
       @second = Integer(s)
+      @day = Integer(1)
+      @month = Integer(1)
+      @year = Integer(2000)
 
       raise ArgumentError, "hour must be between 0 and 23" unless (0..23).include?(@hour)
       raise ArgumentError, "minute must be between 0 and 59" unless (0..59).include?(@minute)
