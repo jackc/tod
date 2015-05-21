@@ -166,11 +166,7 @@ module Tod
     end
 
     def self.load(time)
-      if time.respond_to?(:to_time_of_day)
-        time.to_time_of_day
-      else
-        TimeOfDay.parse(time) if time && !time.empty?
-      end
+      ::Tod::TimeOfDay(time) if time && !time.to_s.empty?
     end
   end
 end
