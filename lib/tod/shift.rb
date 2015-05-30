@@ -33,7 +33,7 @@ module Tod
 
     # Returns true if ranges overlap, false otherwise.
     def overlaps?(other)
-      a, b = [self, other].map(&:range).sort_by(&:first)
+      a, b = [self, other].map(&:range)
       op = a.exclude_end? ? :> : :>=
       a.last.send(op, b.first)
     end
