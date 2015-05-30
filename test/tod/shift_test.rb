@@ -44,7 +44,7 @@ describe "Shift" do
       shift2 = Tod::Shift.new(Tod::TimeOfDay.new(13), Tod::TimeOfDay.new(15))
       assert shift1.overlaps?(shift2)
 
-      # Additional Testing for shifts that Range from one day to another
+      # Additional Testing for Shifts that span from one day to another
       cases = [
         [5, 8, 7, 2],
         [7, 2, 1, 8],
@@ -72,7 +72,7 @@ describe "Shift" do
       shift2 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(12))
       refute shift1.overlaps?(shift2)
 
-      # Additional Testing for shifts that Range from one day to another
+      # Additional Testing for Shifts that span from one day to another
       cases = [
         [7, 8, 1, 5],
         [1, 5, 7, 8],
