@@ -43,12 +43,49 @@ describe "Shift" do
       shift1 = Tod::Shift.new(Tod::TimeOfDay.new(12), Tod::TimeOfDay.new(18))
       shift2 = Tod::Shift.new(Tod::TimeOfDay.new(13), Tod::TimeOfDay.new(15))
       assert shift1.overlaps?(shift2)
+
+      # Additional Testing for shifts that Range from one day to another
+      cases = [
+        [5, 8, 7, 2],
+        [7, 2, 1, 8],
+        [7, 2, 5, 8],
+        [4, 8, 1, 5],
+        [1, 5, 4, 8],
+        [7, 2, 1, 4],
+        [1, 4, 7, 2],
+        [1, 4, 3, 2],
+        [5, 8, 7, 2],
+        [7, 2, 8, 3],
+        [7, 2, 6, 3],
+        [7, 2, 1, 8]
+      ]
+
+      cases.each do |c|
+        shift1 = Tod::Shift.new(Tod::TimeOfDay.new(c[0]), Tod::TimeOfDay.new(c[1]))
+        shift2 = Tod::Shift.new(Tod::TimeOfDay.new(c[2]), Tod::TimeOfDay.new(c[3]))
+        assert shift1.overlaps?(shift2), "Failed with args: #{c}"
+      end
     end
 
     it "is false when shifts don't overlap" do
       shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5))
       shift2 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(12))
       refute shift1.overlaps?(shift2)
+
+      # Additional Testing for shifts that Range from one day to another
+      cases = [
+        [7, 8, 1, 5],
+        [1, 5, 7, 8],
+        [7, 2, 3, 4],
+        [3, 4, 5, 2],
+        [1, 5, 9, 12]
+      ]
+
+      cases.each do |c|
+        shift1 = Tod::Shift.new(Tod::TimeOfDay.new(c[0]), Tod::TimeOfDay.new(c[1]))
+        shift2 = Tod::Shift.new(Tod::TimeOfDay.new(c[2]), Tod::TimeOfDay.new(c[3]))
+        refute shift1.overlaps?(shift2), "Failed with args: #{c}"
+      end
     end
 
     it "is true when shifts touch with inclusive end" do
