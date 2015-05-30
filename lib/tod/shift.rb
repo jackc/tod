@@ -35,20 +35,18 @@ module Tod
     def overlaps?(other)
       max_seconds = TimeOfDay::NUM_SECONDS_IN_DAY
 
-      # Standard case
-      a, b = [self, other].map(&:range)
-      a, b = [a, b].sort_by(&:first)
+      # Standard case, when Shifts are on the same day
+      a, b = [self, other].map(&:range).sort_by(&:first)
       op = a.exclude_end? ? :> : :>=
       return true if a.last.send(op, b.first)
 
-      # Special cases
-      if (a.last > max_seconds) || (b.last > max_seconds)
-        a = Range.new(a.first, a.last - max_seconds, a.exclude_end?) if a.last > max_seconds
-        b = Range.new(b.first, b.last - max_seconds, b.exclude_end?) if b.last > max_seconds
-        a, b = [a, b].sort_by(&:last)
-        b.last.send(op, a.last) && a.last.send(op, b.first)
-      end
-      
+      # Special cases, when Shifts span to the next day
+      return false if (a.last < max_seconds) && (b.last < max_seconds)
+
+      a = Range.new(a.first, a.last - max_seconds, a.exclude_end?) if a.last > max_seconds
+      b = Range.new(b.first, b.last - max_seconds, b.exclude_end?) if b.last > max_seconds
+      a, b = [a, b].sort_by(&:last)
+      b.last.send(op, a.last) && a.last.send(op, b.first)
     end
 
     def contains?(shift)
