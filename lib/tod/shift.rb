@@ -33,9 +33,22 @@ module Tod
 
     # Returns true if ranges overlap, false otherwise.
     def overlaps?(other)
+      max_seconds = TimeOfDay::NUM_SECONDS_IN_DAY
+
+      # Standard case
       a, b = [self, other].map(&:range)
+      a, b = [a, b].sort_by(&:first)
       op = a.exclude_end? ? :> : :>=
-      a.last.send(op, b.first)
+      return true if a.last.send(op, b.first)
+
+      # Special cases
+      if (a.last > max_seconds) || (b.last > max_seconds)
+        a = Range.new(a.first, a.last - max_seconds, a.exclude_end?) if a.last > max_seconds
+        b = Range.new(b.first, b.last - max_seconds, b.exclude_end?) if b.last > max_seconds
+        a, b = [a, b].sort_by(&:last)
+        b.last.send(op, a.last) && a.last.send(op, b.first)
+      end
+      
     end
 
     def contains?(shift)
