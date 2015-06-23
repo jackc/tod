@@ -166,4 +166,106 @@ describe "Shift" do
       assert shift.include?(value)
     end
   end
+
+  describe "#==" do
+    it "is true when the beginning time, end time, and exclude end are the same" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, tod2
+      assert shift1 == shift2
+    end
+
+    it "is false when the beginning time is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, Tod::TimeOfDay.new(14,00)
+      assert !(shift1 == shift2)
+    end
+
+    it "is false when the ending time is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new Tod::TimeOfDay.new(9,30), tod2
+      assert !(shift1 == shift2)
+    end
+
+    it "is false when exclude end is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, tod2, true
+      assert !(shift1 == shift2)
+    end
+  end
+
+  describe "#eql?" do
+    it "is true when the beginning time, end time, and exclude end are the same" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, tod2
+      assert shift1.eql?(shift2)
+    end
+
+    it "is false when the beginning time is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, Tod::TimeOfDay.new(14,00)
+      assert !shift1.eql?(shift2)
+    end
+
+    it "is false when the ending time is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new Tod::TimeOfDay.new(9,30), tod2
+      assert !shift1.eql?(shift2)
+    end
+
+    it "is false when exclude end is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, tod2, true
+      assert !shift1.eql?(shift2)
+    end
+  end
+
+  describe "#hash" do
+    it "is the same when the beginning time, end time, and exclude end are the same" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, tod2
+      assert_equal shift1.hash, shift2.hash
+    end
+
+    it "is usually different when the beginning time is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, Tod::TimeOfDay.new(14,00)
+      assert shift1.hash != shift2.hash
+    end
+
+    it "is usually different when the ending time is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new Tod::TimeOfDay.new(9,30), tod2
+      assert shift1.hash != shift2.hash
+    end
+
+    it "is usually different when exclude end is different" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift1 = Tod::Shift.new tod1, tod2
+      shift2 = Tod::Shift.new tod1, tod2, true
+      assert shift1.hash != shift2.hash
+    end
+  end
 end
