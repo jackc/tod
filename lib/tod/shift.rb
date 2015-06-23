@@ -62,5 +62,17 @@ module Tod
     def exclude_end?
       @exclude_end
     end
+
+    def ==(other)
+      @range == other.range
+    end
+
+    def eql?(other)
+      @range.eql?(other.range)
+    end
+
+    def hash
+      @range.hash
+    end
   end
 end
