@@ -151,6 +151,12 @@ describe "TimeOfDay" do
       result = original + 15
       refute_equal original.object_id, result.object_id
     end
+
+    it "handles ActiveSupport::Duration" do
+      original = Tod::TimeOfDay.new(8,0,0)
+      result = original + 10.minutes
+      assert_equal Tod::TimeOfDay.new(8,10,0), result
+    end
   end
 
   describe "subtraction" do
@@ -170,6 +176,12 @@ describe "TimeOfDay" do
       original = Tod::TimeOfDay.new(8,0,0)
       result = original - 15
       refute_equal original.object_id, result.object_id
+    end
+
+    it "handles ActiveSupport::Duration" do
+      original = Tod::TimeOfDay.new(8,0,0)
+      result = original - 10.minutes
+      assert_equal Tod::TimeOfDay.new(7,50,0), result
     end
   end
 
