@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'active_support/time'
 require 'tod'
 require 'tod/core_extensions'
+require 'tod/arel_extensions'
 require 'minitest/autorun'
 require 'pry'
 

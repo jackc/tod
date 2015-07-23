@@ -30,4 +30,13 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
       assert_equal order.time, nil
     end
   end
+
+  describe "Order.where" do
+    it "handles TimeOfDay as a parameter" do
+      tod = Tod::TimeOfDay.new(11, 11)
+      expected = Order.create!(time: tod)
+      actual = Order.where(time: tod).first
+      assert_equal expected, actual
+    end
+  end
 end
