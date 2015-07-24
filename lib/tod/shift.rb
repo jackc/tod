@@ -74,5 +74,10 @@ module Tod
     def hash
       @range.hash
     end
+
+    # Move start and end by a number of seconds and return new shift.
+    def slide(seconds)
+      self.class.new(beginning + seconds, ending + seconds, exclude_end?)
+    end
   end
 end

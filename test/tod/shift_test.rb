@@ -305,4 +305,51 @@ describe "Shift" do
       assert shift1.hash != shift2.hash
     end
   end
+
+  describe "slide" do
+    it "handles positive numbers" do
+      slide = 30 * 60 # 30 minutes in seconds
+
+      beginning_expected = Tod::TimeOfDay.new 10, 30
+      ending_expected = Tod::TimeOfDay.new 16, 30
+
+      beginning  = Tod::TimeOfDay.new 10
+      ending  = Tod::TimeOfDay.new 16
+      shift = Tod::Shift.new(beginning, ending, false).slide(slide)
+
+      assert_equal beginning_expected, shift.beginning
+      assert_equal ending_expected, shift.ending
+      refute shift.exclude_end?
+    end
+
+    it "handles negative numbers" do
+      slide = -30 * 60 # -30 minutes in seconds
+
+      beginning_expected = Tod::TimeOfDay.new 9, 30
+      ending_expected = Tod::TimeOfDay.new 15, 30
+
+      beginning  = Tod::TimeOfDay.new 10
+      ending  = Tod::TimeOfDay.new 16
+      shift = Tod::Shift.new(beginning, ending, false).slide(slide)
+
+      assert_equal beginning_expected, shift.beginning
+      assert_equal ending_expected, shift.ending
+      refute shift.exclude_end?
+    end
+
+    it "handles ActiveSupport::Duration" do
+      slide = 30.minutes
+
+      beginning_expected = Tod::TimeOfDay.new 10, 30
+      ending_expected = Tod::TimeOfDay.new 16, 30
+
+      beginning  = Tod::TimeOfDay.new 10
+      ending  = Tod::TimeOfDay.new 16
+      shift = Tod::Shift.new(beginning, ending, false).slide(slide)
+
+      assert_equal beginning_expected, shift.beginning
+      assert_equal ending_expected, shift.ending
+      refute shift.exclude_end?
+    end
+  end
 end
