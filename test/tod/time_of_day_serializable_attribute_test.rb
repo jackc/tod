@@ -6,28 +6,26 @@ class Order < ActiveRecord::Base
 end
 
 describe "TimeOfDay with ActiveRecord Serializable Attribute" do
-  describe ".dump" do
-    it "sets time of day" do
-      Order.create!(time: Tod::TimeOfDay.new(9, 30))
-    end
-
-    it "sets nil as value" do
-      Order.create!(time: nil)
-    end
-  end
-
-  describe ".load" do
-    it "loads set time" do
+  describe ".dump and .load" do
+    it "handles normal time" do
       time_of_day = Tod::TimeOfDay.new(9, 30)
       order = Order.create!(time: time_of_day)
       order.reload
       assert_equal order.time, time_of_day
     end
 
-    it "returns nil if time is not set" do
+    it "handles nil" do
       order = Order.create!(time: nil)
       order.reload
       assert_equal order.time, nil
+    end
+
+    # https://github.com/rails/rails/issues/7125
+    it "blocks dumping 24:00:00 before Rails can cause data corruption" do
+      time_of_day = Tod::TimeOfDay.new(24, 0, 0)
+      assert_raises(Tod::TimeOfDay::ActiveRecordTimeDumpError) do
+        Order.new(time: time_of_day)
+      end
     end
   end
 

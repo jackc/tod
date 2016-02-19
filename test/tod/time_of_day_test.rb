@@ -4,7 +4,7 @@ describe "TimeOfDay" do
   describe "#initialize" do
     it "blocks invalid hours" do
       assert_raises(ArgumentError) { Tod::TimeOfDay.new -1 }
-      assert_raises(ArgumentError) { Tod::TimeOfDay.new 24 }
+      assert_raises(ArgumentError) { Tod::TimeOfDay.new 25 }
     end
 
     it "blocks invalid minutes" do
@@ -29,6 +29,10 @@ describe "TimeOfDay" do
 
     it "is 86399 at last second of day" do
       assert_equal 86399, Tod::TimeOfDay.new(23,59,59).second_of_day
+    end
+
+    it "is 86400 at beginning of next day" do
+      assert_equal 86400, Tod::TimeOfDay.new(24,0,0).second_of_day
     end
 
     it "have alias to_i" do
@@ -84,9 +88,12 @@ describe "TimeOfDay" do
   should_parse "12a",          0, 0, 0
   should_parse "12p",         12, 0, 0
 
+  should_parse "24:00:00",    24, 0, 0
+  should_parse "24:00",       24, 0, 0
+  should_parse "24",          24, 0, 0
+  should_parse "2400",        24, 0, 0
+
   should_not_parse "-1:30"
-  should_not_parse "24:00:00"
-  should_not_parse "24"
   should_not_parse "00:60"
   should_not_parse "00:00:60"
   should_not_parse "13a"
@@ -194,7 +201,7 @@ describe "TimeOfDay" do
     end
 
     it "handles positive numbers a day or more away" do
-      assert_equal Tod::TimeOfDay.new(0,0,0), Tod::TimeOfDay.from_second_of_day(86400)
+      assert_equal Tod::TimeOfDay.new(24,0,0), Tod::TimeOfDay.from_second_of_day(86400)
       assert_equal Tod::TimeOfDay.new(0,0,30), Tod::TimeOfDay.from_second_of_day(86430)
       assert_equal Tod::TimeOfDay.new(0,1,30), Tod::TimeOfDay.from_second_of_day(86490)
       assert_equal Tod::TimeOfDay.new(1,1,5), Tod::TimeOfDay.from_second_of_day(90065)

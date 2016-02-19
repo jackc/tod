@@ -9,7 +9,7 @@ module Tod
 
     PARSE_24H_REGEX = /
       \A
-      ([01]?\d|2[0-3])
+      ([01]?\d|2[0-4])
       :?
       ([0-5]\d)?
       :?
@@ -47,7 +47,10 @@ module Tod
       @minute = Integer(m)
       @second = Integer(s)
 
-      raise ArgumentError, "hour must be between 0 and 23" unless (0..23).include?(@hour)
+      raise ArgumentError, "hour must be between 0 and 24" unless (0..24).include?(@hour)
+      if @hour == 24 && (@minute != 0 || @second != 0)
+        raise ArgumentError, "hour can only be 24 when minute and seconds are 0"
+      end
       raise ArgumentError, "minute must be between 0 and 59" unless (0..59).include?(@minute)
       raise ArgumentError, "second must be between 0 and 59" unless (0..59).include?(@second)
 
@@ -67,6 +70,10 @@ module Tod
     end
 
     def to_s
+      # Special case 2400 because strftime will load TimeOfDay into Time which
+      # will convert 24 to 0
+      return "24:00:00" if @hour == 24
+
       strftime "%H:%M:%S"
     end
 
@@ -92,6 +99,8 @@ module Tod
     #
     #   TimeOfDay.from_second_of_day(3600) == TimeOfDay.new(1)   # => true
     def self.from_second_of_day(second_of_day)
+      return new 24 if second_of_day == NUM_SECONDS_IN_DAY
+
       remaining_seconds = second_of_day % NUM_SECONDS_IN_DAY
       hour = remaining_seconds / NUM_SECONDS_IN_HOUR
       remaining_seconds -= hour * NUM_SECONDS_IN_HOUR
@@ -157,11 +166,21 @@ module Tod
       (Time.respond_to?(:zone) && Time.zone) || Time
     end
 
+    class ActiveRecordTimeDumpError < StandardError
+      def message
+"ActiveRecord automatically converts 24:00:00 to 00:00:00. To avoid data loss, Tod::TimeOfDay.dump detects this is about to occur and raises this exception. See https://github.com/rails/rails/issues/7125 for more information."
+      end
+    end
+
     def self.dump(time_of_day)
-      if time_of_day.to_s == ''
+      s = time_of_day.to_s
+      case s
+      when ''
         nil
+      when '24:00:00'
+        raise ActiveRecordTimeDumpError
       else
-        time_of_day.to_s
+        s
       end
     end
 
