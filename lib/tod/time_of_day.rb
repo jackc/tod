@@ -72,14 +72,22 @@ module Tod
 
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
-    def +(num_seconds)
-      TimeOfDay.from_second_of_day @second_of_day + num_seconds
+    def +(other)
+      if other.instance_of?(TimeOfDay)
+        TimeOfDay.from_second_of_day @second_of_day + other.second_of_day
+      else
+        TimeOfDay.from_second_of_day @second_of_day + other
+      end
     end
 
     # Return a new TimeOfDay num_seconds less than self. It will wrap around
     # at midnight.
-    def -(num_seconds)
-      TimeOfDay.from_second_of_day @second_of_day - num_seconds
+    def -(other)
+      if other.instance_of?(TimeOfDay)
+        TimeOfDay.from_second_of_day @second_of_day - other.second_of_day
+      else
+        TimeOfDay.from_second_of_day @second_of_day - other
+      end
     end
 
     # Returns a Time instance on date using self as the time of day
