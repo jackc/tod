@@ -183,6 +183,13 @@ describe "TimeOfDay" do
       result = original - 10.minutes
       assert_equal Tod::TimeOfDay.new(7,50,0), result
     end
+
+    it "subtracts Tod::TimeOfDay object" do
+      right_side = Tod::TimeOfDay.new(10,0,0)
+      left_side = Tod::TimeOfDay.new(12,0,30)
+      result = right_side - left_side
+      assert_equal Tod::TimeOfDay.new(21,59,30), result
+    end
   end
 
   describe "from_second_of_day" do
