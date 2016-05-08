@@ -1,3 +1,5 @@
+require 'date'
+
 module Tod
   module DateExtensions
     # Returns a local Time instance with this date and time_of_day
