@@ -1,4 +1,4 @@
-# Unreleased
+# 2.1.0 (May 9, 2016)
 
 * Fix date extensions requiring date (ambirdsall)
 * Add subtraction to TimeOfDay (Hiroki Shirai)

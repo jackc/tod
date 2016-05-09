@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tod (2.0.2)
+    tod (2.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -49,3 +49,6 @@ DEPENDENCIES
   sqlite3
   tod!
   tzinfo
+
+BUNDLED WITH
+   1.11.2
