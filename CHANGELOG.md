@@ -1,3 +1,15 @@
+# Unreleased
+
+* Fix date extensions requiring date (ambirdsall)
+* Add subtraction to TimeOfDay (Hiroki Shirai)
+* Add equality comparison for shifts (Greg Beech)
+* Add arel_extensions for TimeOfDay (Paul Tyng)
+* Support for shifts that span to other days (kennyeni)
+
+# 2.0.2 (May 21, 2015)
+
+* Fix ActiveRecord serialization when core extensions not loaded
+
 # 2.0.1 (May 8, 2015)
 
 * Fix Tod::TimeOfDay() without core extensions
