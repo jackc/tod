@@ -5,3 +5,4 @@ nbproject
 *.swp
 .rvmrc
 vendor/
+.idea

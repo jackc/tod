@@ -61,6 +61,21 @@ module Tod
       @second_of_day <=> other.second_of_day
     end
 
+    # Rounding to the given nearest number of seconds
+    def round(round_sec = 1)
+      down = self - (self.to_i % round_sec)
+      up = down + round_sec
+
+      difference_down = self - down
+      difference_up = up - self
+
+      if (difference_down < difference_up)
+        return down
+      else
+        return up
+      end
+    end
+
     # Formats identically to Time#strftime
     def strftime(format_string)
       Time.local(2000,1,1, @hour, @minute, @second).strftime(format_string)
