@@ -112,6 +112,20 @@ describe "TimeOfDay" do
     assert_equal Tod::TimeOfDay.new(8,0,0), Tod::TimeOfDay.new(8,0,0)
   end
 
+  describe "round_nearest" do
+    it "rounds to the given nearest number of seconds" do
+      assert_equal Tod::TimeOfDay.new(8,15,30), Tod::TimeOfDay.new(8,15,31).round(5)
+      assert_equal Tod::TimeOfDay.new(8,15,35), Tod::TimeOfDay.new(8,15,33).round(5)
+      assert_equal Tod::TimeOfDay.new(8,16,0), Tod::TimeOfDay.new(8,15,34).round(60)
+      assert_equal Tod::TimeOfDay.new(8,15,0), Tod::TimeOfDay.new(8,15,15).round(60)
+      assert_equal Tod::TimeOfDay.new(8,15,0), Tod::TimeOfDay.new(8,17,15).round(300)
+      assert_equal Tod::TimeOfDay.new(8,20,0), Tod::TimeOfDay.new(8,18,15).round(300)
+      assert_equal Tod::TimeOfDay.new(8,20,0), Tod::TimeOfDay.new(8,20,00).round(300)
+      assert_equal Tod::TimeOfDay.new(9,0,0), Tod::TimeOfDay.new(8,58,00).round(300)
+      assert_equal Tod::TimeOfDay.new(8,0,0), Tod::TimeOfDay.new(8,02,29).round(300)
+      assert_equal Tod::TimeOfDay.new(0,0,0), Tod::TimeOfDay.new(23,58,29).round(300)
+    end
+  end
 
   describe "strftime" do
     it "accepts standard strftime format codes" do

@@ -89,6 +89,15 @@ Format strings are passed to Time#strftime.
     Tod::TimeOfDay.new(17,15).strftime("%I:%M %p")      # => "05:15 PM"
     Tod::TimeOfDay.new(22,5,15).strftime("%I:%M:%S %p") # => "10:05:15 PM"
 
+Rounding
+----------
+
+Round to the given nearest number of seconds.
+
+    Tod::TimeOfDay.new(8,15,31).round(5)     # => "08:15:30"
+    Tod::TimeOfDay.new(8,15,34).round(60)    # => "08:16:00"
+    Tod::TimeOfDay.new(8,02,29).round(300)   # => "08:00:00"
+
 Convenience methods for dates and times
 ---------------------------------------
 
