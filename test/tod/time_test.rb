@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__),'..','test_helper'))
+require_relative '../test_helper'
 
 describe "Time extensions" do
   describe "#to_time_of_day" do
