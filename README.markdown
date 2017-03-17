@@ -250,7 +250,7 @@ Compatibility
 
 [![Build Status](https://travis-ci.org/jackc/tod.png)](https://travis-ci.org/jackc/tod)
 
-Tod is compatible with Ruby 1.9.3, 2.0.0, 2.1.8, and 2.2.0. It is tested against Rails 3.2, 4.0, 4.1, 4.2.
+Tod is compatible with Ruby 1.9.3, 2.0.0, 2.1.8, and 2.2.0. It is tested against Rails 3.2, 4.0, 4.1, 4.2, 5.0.
 
 
 License
