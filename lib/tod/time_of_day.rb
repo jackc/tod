@@ -177,7 +177,11 @@ module Tod
     end
 
     def self.dump(time_of_day)
-      if time_of_day.to_s == ''
+      if time_of_day.is_a? Hash
+        # rails multiparam attribute
+        hour,minute,second = time_of_day[4], time_of_day[5], time_of_day[6]
+        ::Tod::TimeOfDay.new(hour, minute, second).to_s
+      elsif time_of_day.to_s == ''
         nil
       else
         time_of_day.to_s
