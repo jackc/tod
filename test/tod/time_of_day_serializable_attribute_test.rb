@@ -14,6 +14,11 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
     it "sets nil as value" do
       Order.create!(time: nil)
     end
+
+    it "works with multiparam time arguments" do
+      order = Order.create!({"time(4i)" => "8", "time(5i)" => "6", "time(6i)" => "5"})
+      assert_equal Tod::TimeOfDay.new(8,6,5), order.time
+    end
   end
 
   describe ".load" do
