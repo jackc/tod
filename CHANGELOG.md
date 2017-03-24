@@ -1,6 +1,7 @@
 # Unreleased
 
-* Fix TimeOfDay.from_second_of_day when passed float
+* Fix TimeOfDay.from_second_of_day when passed float (Jack Christensen)
+* Fix Rails 5 multi-param assignment (Miklos Fazekas)
 
 # 2.1.0 (May 9, 2016)
 
