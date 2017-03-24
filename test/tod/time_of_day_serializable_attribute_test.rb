@@ -32,7 +32,7 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
     it "returns nil if time is not set" do
       order = Order.create!(time: nil)
       order.reload
-      assert_equal order.time, nil
+      assert_nil order.time
     end
   end
 

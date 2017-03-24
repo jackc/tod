@@ -3,7 +3,7 @@ require_relative '../test_helper'
 describe "TimeOfDay" do
   describe "#initialize" do
     it "blocks invalid hours" do
-      assert_raises(ArgumentError) { Tod::TimeOfDay.new -1 }
+      assert_raises(ArgumentError) { Tod::TimeOfDay.new(-1) }
       assert_raises(ArgumentError) { Tod::TimeOfDay.new 24 }
     end
 
@@ -50,7 +50,7 @@ describe "TimeOfDay" do
   def self.should_not_parse(parse_string)
     it "does not parse '#{parse_string}'" do
       assert_equal false, Tod::TimeOfDay.parsable?(parse_string)
-      assert_equal nil, Tod::TimeOfDay.try_parse(parse_string)
+      assert_nil Tod::TimeOfDay.try_parse(parse_string)
       assert_raises(ArgumentError) { Tod::TimeOfDay.parse(parse_string) }
     end
   end
@@ -98,12 +98,12 @@ describe "TimeOfDay" do
 
   it "does not parse 'nil'" do
     assert_equal false, Tod::TimeOfDay.parsable?(nil)
-    assert_equal nil, Tod::TimeOfDay.try_parse(nil)
+    assert_nil Tod::TimeOfDay.try_parse(nil)
     assert_raises(ArgumentError) { Tod::TimeOfDay.parse(nil) }
   end
 
   it "provides spaceship operator" do
-    assert_equal -1, Tod::TimeOfDay.new(8,0,0) <=> Tod::TimeOfDay.new(9,0,0)
+    assert_equal(-1, Tod::TimeOfDay.new(8,0,0) <=> Tod::TimeOfDay.new(9,0,0))
     assert_equal 0, Tod::TimeOfDay.new(9,0,0) <=> Tod::TimeOfDay.new(9,0,0)
     assert_equal 1, Tod::TimeOfDay.new(10,0,0) <=> Tod::TimeOfDay.new(9,0,0)
   end
