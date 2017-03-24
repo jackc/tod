@@ -1,3 +1,7 @@
+# Unreleased
+
+* Fix TimeOfDay.from_second_of_day when passed float
+
 # 2.1.0 (May 9, 2016)
 
 * Fix date extensions requiring date (ambirdsall)

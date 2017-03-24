@@ -233,6 +233,10 @@ describe "TimeOfDay" do
     it "has alias from_i" do
       assert_equal Tod::TimeOfDay.method(:from_second_of_day), Tod::TimeOfDay.method(:from_i)
     end
+
+    it "handles floats" do
+      assert_equal Tod::TimeOfDay.new(15,30,0), Tod::TimeOfDay.from_second_of_day(55800.0)
+    end
   end
 
   describe "on" do

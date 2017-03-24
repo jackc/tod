@@ -111,6 +111,7 @@ module Tod
     #
     #   TimeOfDay.from_second_of_day(3600) == TimeOfDay.new(1)   # => true
     def self.from_second_of_day(second_of_day)
+      second_of_day = Integer(second_of_day)
       remaining_seconds = second_of_day % NUM_SECONDS_IN_DAY
       hour = remaining_seconds / NUM_SECONDS_IN_HOUR
       remaining_seconds -= hour * NUM_SECONDS_IN_HOUR
