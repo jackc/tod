@@ -22,11 +22,18 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
   end
 
   describe ".load" do
-    it "loads set time" do
+    it "loads set Tod::TimeOfDay" do
       time_of_day = Tod::TimeOfDay.new(9, 30)
       order = Order.create!(time: time_of_day)
       order.reload
       assert_equal order.time, time_of_day
+    end
+
+    it "loads set Time" do
+      time_of_day = Time.new(2015, 10, 21, 16, 29, 0, "-07:00")
+      order = Order.create!(time: time_of_day)
+      order.reload
+      assert_equal order.time, Tod::TimeOfDay.new(16, 29)
     end
 
     it "returns nil if time is not set" do

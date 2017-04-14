@@ -185,7 +185,7 @@ module Tod
       elsif time_of_day.to_s == ''
         nil
       else
-        time_of_day.to_s
+        Tod::TimeOfDay(time_of_day).to_s
       end
     end
 
