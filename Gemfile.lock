@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tod (2.1.0)
+    tod (2.1.1)
 
 GEM
   remote: https://rubygems.org/

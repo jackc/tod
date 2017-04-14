@@ -1,5 +1,6 @@
-# Unreleased
+# 2.1.1 (April 14, 2017)
 
+* Fix serialize Ruby Time to Tod::TimeOfDay (Ryan Dick)
 * Fix TimeOfDay.from_second_of_day when passed float (Jack Christensen)
 * Fix Rails 5 multi-param assignment (Miklos Fazekas)
 
