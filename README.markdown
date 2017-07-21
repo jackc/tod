@@ -199,13 +199,26 @@ Active Record Serializable Attribute Support
 =======================
 Tod::TimeOfDay implements a custom serialization contract for ActiveRecord serialize which allows to store Tod::TimeOfDay directly
 in a column of the time type.
+
 Example:
+
 ```ruby
 class Order < ActiveRecord::Base
   serialize :time, Tod::TimeOfDay
 end
 order = Order.create(time: Tod::TimeOfDay.new(9,30))
 order.time                                      # => 09:30:00
+```
+
+By default Rails 5.1 treats database `time` values as if time zones are
+meaningful. Tod::TimeOfDay cannot correctly save and restore values when Rails
+automatically shifts values based on time zone and the normal `serialize`
+interface is not able to override this behavior. To correctly serialize
+Tod::TimeOfDay values with Rails 5.1 time zone handling must be disabled for
+database `time` types. This can be done with the following config:
+
+```
+config.active_record.time_zone_aware_types = [:datetime]
 ```
 
 MongoDB Support
