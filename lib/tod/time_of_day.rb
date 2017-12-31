@@ -42,6 +42,12 @@ module Tod
     NUM_SECONDS_IN_HOUR = 3600
     NUM_SECONDS_IN_MINUTE = 60
 
+    FORMATS = {
+      short: "%-l:%M %P",
+      medium: "%-l:%M:%S %P",
+      time: "%H:%M"
+    }
+
     def initialize(h, m=0, s=0)
       @hour = Integer(h)
       @minute = Integer(m)
@@ -81,9 +87,18 @@ module Tod
       Time.local(2000,1,1, @hour, @minute, @second).strftime(format_string)
     end
 
-    def to_s
-      strftime "%H:%M:%S"
+    def to_formatted_s(format = :default)
+      if formatter = FORMATS[format]
+        if formatter.respond_to?(:call)
+          formatter.call(self).to_s
+        else
+          strftime(formatter)
+        end
+      else
+        strftime "%H:%M:%S"
+      end
     end
+    alias_method :to_s, :to_formatted_s
 
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
