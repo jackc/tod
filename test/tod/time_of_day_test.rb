@@ -133,10 +133,41 @@ describe "TimeOfDay" do
     end
   end
 
+  describe "to_formatted_s" do
+    it "has a default format" do
+      assert_equal "08:15:30", Tod::TimeOfDay.new(8,15,30).to_formatted_s
+      assert_equal "22:10:45", Tod::TimeOfDay.new(22,10,45).to_formatted_s
+    end
+
+    it "has a short format" do
+      assert_equal "8:15 am", Tod::TimeOfDay.new(8,15,30).to_formatted_s(:short)
+      assert_equal "10:10 pm", Tod::TimeOfDay.new(22,10,45).to_formatted_s(:short)
+    end
+
+    it "has a medium format" do
+      assert_equal "8:15:30 am", Tod::TimeOfDay.new(8,15,30).to_formatted_s(:medium)
+      assert_equal "10:10:45 pm", Tod::TimeOfDay.new(22,10,45).to_formatted_s(:medium)
+    end
+
+    it "has an ActiveSupport compatible time format" do
+      assert_equal "08:15", Tod::TimeOfDay.new(8,15,30).to_formatted_s(:time)
+      assert_equal "22:10", Tod::TimeOfDay.new(22,10,45).to_formatted_s(:time)
+    end
+
+    it "evaluates custom lambda lambda formats" do
+      begin
+        Tod::TimeOfDay::FORMATS[:lambda] = -> (t) { t.strftime("%H%M 😎") }
+        assert_equal "1337 😎", Tod::TimeOfDay.new(13,37).to_formatted_s(:lambda)
+      ensure
+        Tod::TimeOfDay::FORMATS.delete(:lambda)
+      end
+    end
+  end
+
   describe "to_s" do
-    it "formats to HH:MM:SS" do
-      assert_equal "08:15:30", Tod::TimeOfDay.new(8,15,30).to_s
-      assert_equal "22:10:45", Tod::TimeOfDay.new(22,10,45).to_s
+    it "is aliased to to_formatted_s" do
+      t = Tod::TimeOfDay.new(8,15,30)
+      assert_equal t.to_formatted_s, t.to_s
     end
   end
 
