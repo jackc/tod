@@ -1,3 +1,7 @@
+# Unreleased
+
+* Add string formatting compatible with Rails (Tate Johnson)
+
 # 2.1.1 (April 14, 2017)
 
 * Fix serialize Ruby Time to Tod::TimeOfDay (Ryan Dick)

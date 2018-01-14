@@ -89,6 +89,15 @@ Format strings are passed to Time#strftime.
     Tod::TimeOfDay.new(17,15).strftime("%I:%M %p")      # => "05:15 PM"
     Tod::TimeOfDay.new(22,5,15).strftime("%I:%M:%S %p") # => "10:05:15 PM"
 
+Or a Rails style `to_formatted_s` is aliased to `to_s`.
+
+    Tod::TimeOfDay.new(8,30).to_s(:short)    # => "8:30 am"
+
+Add new formatters to `Tod::TimeOfDay::FORMATS`.
+
+    Tod::TimeOfDay::FORMATS[:seconds_only] = "%S"
+    Tod::TimeOfDay.new(8,30,57).to_s(:seconds_only)  # => "57"
+
 Rounding
 ----------
 
