@@ -93,6 +93,10 @@ Or a Rails style `to_formatted_s` is aliased to `to_s`.
 
     Tod::TimeOfDay.new(8,30).to_s(:short)    # => "8:30 am"
 
+Or [i18n](https://github.com/svenfuchs/i18n) in a Rails ERB view.
+
+    <%= l Tod::TimeOfDay.new(8, 30), format: :short %>
+
 Add new formatters to `Tod::TimeOfDay::FORMATS`.
 
     Tod::TimeOfDay::FORMATS[:seconds_only] = "%S"
