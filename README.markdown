@@ -62,7 +62,7 @@ Values can be tested with Tod::TimeOfDay.parsable? to see if they can be parsed.
 Adding or subtracting time
 -----------------------------
 
-Seconds can be added to or subtracted Tod::TimeOfDay objects. Time correctly wraps
+Seconds can be added to or subtracted from Tod::TimeOfDay objects. Time correctly wraps
 around midnight.
 
     Tod::TimeOfDay.new(8) + 3600                        # => 09:00:00
