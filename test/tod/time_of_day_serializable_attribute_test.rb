@@ -41,6 +41,13 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
       order.reload
       assert_nil order.time
     end
+
+    it "dump 24:00:00 and get it back" do
+      time_of_day = Tod::TimeOfDay.new(24, 0, 0)
+      order = Order.create!(time: time_of_day)
+      order.reload
+      assert_equal Tod::TimeOfDay.new(24), order.time
+    end
   end
 
   describe "Order.where" do

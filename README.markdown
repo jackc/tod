@@ -208,7 +208,7 @@ Rails Time Zone Support
 
 If Rails time zone support is loaded, Date#on and Tod::TimeOfDay#at will automatically use Time.zone.
 
-Active Record Serializable Attribute Support
+ActiveRecord Serializable Attribute Support
 =======================
 Tod::TimeOfDay implements a custom serialization contract for ActiveRecord serialize which allows to store Tod::TimeOfDay directly
 in a column of the time type.

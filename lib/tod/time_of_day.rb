@@ -9,7 +9,7 @@ module Tod
 
     PARSE_24H_REGEX = /
       \A
-      ([01]?\d|2[0-3])
+      ([01]?\d|2[0-4])
       :?
       ([0-5]\d)?
       :?
@@ -53,7 +53,10 @@ module Tod
       @minute = Integer(m)
       @second = Integer(s)
 
-      raise ArgumentError, "hour must be between 0 and 23" unless (0..23).include?(@hour)
+      raise ArgumentError, "hour must be between 0 and 24" unless (0..24).include?(@hour)
+      if @hour == 24 && (@minute != 0 || @second != 0)
+        raise ArgumentError, "hour can only be 24 when minute and second are 0"
+      end
       raise ArgumentError, "minute must be between 0 and 59" unless (0..59).include?(@minute)
       raise ArgumentError, "second must be between 0 and 59" unless (0..59).include?(@second)
 
@@ -84,6 +87,9 @@ module Tod
 
     # Formats identically to Time#strftime
     def strftime(format_string)
+      # Special case 2400 because strftime will load TimeOfDay into Time which
+      # will convert 24 to 0
+      format_string.gsub!(/%H|%k/, '24') if @hour == 24
       Time.local(2000,1,1, @hour, @minute, @second).strftime(format_string)
     end
 
@@ -127,6 +133,7 @@ module Tod
     #   TimeOfDay.from_second_of_day(3600) == TimeOfDay.new(1)   # => true
     def self.from_second_of_day(second_of_day)
       second_of_day = Integer(second_of_day)
+      return new 24 if second_of_day == NUM_SECONDS_IN_DAY
       remaining_seconds = second_of_day % NUM_SECONDS_IN_DAY
       hour = remaining_seconds / NUM_SECONDS_IN_HOUR
       remaining_seconds -= hour * NUM_SECONDS_IN_HOUR
@@ -205,7 +212,10 @@ module Tod
     end
 
     def self.load(time)
-      ::Tod::TimeOfDay(time) if time && !time.to_s.empty?
+      if time && !time.to_s.empty?
+        return ::Tod::TimeOfDay.new(24) if time.respond_to?(:day) && time.day == 2 && time.hour == 0 && time.min == 0 && time.sec == 0
+        ::Tod::TimeOfDay(time)
+      end
     end
   end
 end
