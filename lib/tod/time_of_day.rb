@@ -160,8 +160,10 @@ module Tod
     #   TimeOfDay.parse "3:25:58"                      # => 03:25:58
     #   TimeOfDay.parse "515p"                         # => 17:15:00
     #   TimeOfDay.parse "151253"                       # => 15:12:53
+    # You can give a block, that is called with the input if the string is not parsable.
+    # If no block is given an ArgumentError is raised if try_parse returns nil.
     def self.parse(tod_string)
-      try_parse(tod_string) || (raise ArgumentError, "Invalid time of day string")
+      try_parse(tod_string) || (block_given? ? yield(tod_string) : raise(ArgumentError, "Invalid time of day string"))
     end
 
     # Same as parse(), but return nil if not parsable (instead of raising an error)
@@ -200,15 +202,16 @@ module Tod
     end
 
     def self.dump(time_of_day)
-      if time_of_day.is_a? Hash
-        # rails multiparam attribute
-        hour,minute,second = time_of_day[4], time_of_day[5], time_of_day[6]
-        ::Tod::TimeOfDay.new(hour, minute, second).to_s
-      elsif time_of_day.to_s == ''
-        nil
-      else
-        Tod::TimeOfDay(time_of_day).to_s
-      end
+      time_of_day =
+        if time_of_day.is_a? Hash
+           # rails multiparam attribute
+           # get hour, minute and second and construct new TimeOfDay object
+          ::Tod::TimeOfDay.new(time_of_day[4], time_of_day[5], time_of_day[6])
+        else
+          # return nil, if input is not parsable
+          Tod::TimeOfDay(time_of_day){}
+        end
+      time_of_day.to_s if time_of_day
     end
 
     def self.load(time)
