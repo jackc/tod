@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "activerecord", ">= 3.0.0"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "pry"
+  s.add_development_dependency "pry-byebug"
   s.add_development_dependency "arel"
 
   s.files         = `git ls-files`.split("\n")
