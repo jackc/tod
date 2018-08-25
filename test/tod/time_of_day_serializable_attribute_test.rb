@@ -19,6 +19,18 @@ describe "TimeOfDay with ActiveRecord Serializable Attribute" do
       order = Order.create!({"time(4i)" => "8", "time(5i)" => "6", "time(6i)" => "5"})
       assert_equal Tod::TimeOfDay.new(8,6,5), order.time
     end
+
+    it "should not raise Exception on access of unparsable values" do
+      order = Order.new(time: 'unparsable')
+      order.time
+      assert order.valid?
+    end
+
+    it "should dump unparsable values to nil" do
+      assert_nil Tod::TimeOfDay.dump('')
+      assert_nil Tod::TimeOfDay.dump('unparsable')
+      assert_nil Tod::TimeOfDay.dump(nil)
+    end
   end
 
   describe ".load" do

@@ -1,5 +1,5 @@
 module Tod
-  def TimeOfDay(obj_or_string)
+  def TimeOfDay(obj_or_string, &block)
     if obj_or_string.is_a?(TimeOfDay)
       obj_or_string
     elsif obj_or_string.respond_to?(:to_time_of_day)
@@ -9,7 +9,7 @@ module Tod
     elsif obj_or_string.is_a?(Date)
       TimeOfDay.new 0
     else
-      TimeOfDay.parse(obj_or_string)
+      TimeOfDay.parse(obj_or_string, &block)
     end
   end
 

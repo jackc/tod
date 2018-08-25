@@ -7,3 +7,7 @@ gemfile:
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
+matrix:
+  include:
+    - rvm: 2.5.1
+      gemfile: gemfiles/5.2.gemfile

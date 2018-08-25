@@ -54,6 +54,12 @@ parsable.
     Tod::TimeOfDay.try_parse "3:30pm"                   # => 15:30:00
     Tod::TimeOfDay.try_parse "foo"                      # => nil
 
+You can also give a block to parse to handle special input with your own logic.
+
+    Tod::TimeOfDay.parse "25" do |time_string|
+      Tod::TimeOfDay.new(time_string.to_i % 24)
+    end                                                 # => 01:00:00
+
 Values can be tested with Tod::TimeOfDay.parsable? to see if they can be parsed.
 
     Tod::TimeOfDay.parsable? "3:30pm"                   # => true

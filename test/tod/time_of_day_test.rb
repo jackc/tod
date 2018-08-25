@@ -3,7 +3,7 @@ require_relative '../test_helper'
 describe "TimeOfDay" do
   describe "#initialize" do
     it "blocks invalid hours" do
-      assert_raises(ArgumentError) { Tod::TimeOfDay.new -1 }
+      assert_raises(ArgumentError) { Tod::TimeOfDay.new(-1) }
       assert_raises(ArgumentError) { Tod::TimeOfDay.new 25 }
     end
 
@@ -107,6 +107,11 @@ describe "TimeOfDay" do
     assert_equal false, Tod::TimeOfDay.parsable?(nil)
     assert_nil Tod::TimeOfDay.try_parse(nil)
     assert_raises(ArgumentError) { Tod::TimeOfDay.parse(nil) }
+  end
+
+  it "executes block on parsing failure and return result instead" do
+    assert_equal Tod::TimeOfDay.new(1), Tod::TimeOfDay.parse('25:00:00') { Tod::TimeOfDay.new(1) }
+    assert_equal Tod::TimeOfDay.new(1), Tod::TimeOfDay.parse('25:00:00') { |time_string| Tod::TimeOfDay.parse(time_string.sub('25', '01')) }
   end
 
   it "provides spaceship operator" do
