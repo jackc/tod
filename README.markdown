@@ -120,7 +120,8 @@ Round to the given nearest number of seconds.
 Convenience methods for dates and times
 ---------------------------------------
 
-Pass a date to Tod::TimeOfDay#on and it will return a time with that date and time.
+Pass a date to Tod::TimeOfDay#on and it will return a time with that date and time,
+in the time zone of the ruby runtime (`Time.now.zone`).
 
     tod = Tod::TimeOfDay.new 8, 30                  # => 08:30:00
     tod.on Date.today                               # => 2010-12-29 08:30:00 -0600
@@ -212,7 +213,18 @@ Contains?
 Rails Time Zone Support
 =======================
 
-If Rails time zone support is loaded, Date#on and Tod::TimeOfDay#at will automatically use Time.zone.
+If Rails time zone support is loaded, Date#on and Tod::TimeOfDay#at (when given a Date) will automatically use Time.zone.
+
+When Tod::TimeOfDay#on is given a `Time` or `Time`-like object like `ActiveSupport::TimeWithZone`,
+Tod will ignore the specified timezone and return the time on that date in UTC. In order to
+produce an object with the correct time and time zone, pass in an
+`ActiveSupport::TimeZone` object. Date#at has analogous behavior.
+
+    time = Time.now.in_time_zone("US/Eastern")           # => Mon, 24 Sep 2018 05:07:23 EDT -04:00
+    tod.on time                                          # => Mon, 24 Sep 2018 08:30:00 UTC +00:00
+    tod.on time, time.time_zone                          # => Mon, 24 Sep 2018 08:30:00 EDT -04:00
+    tod.on time, Time.find_zone!("US/Mountain")          # => Mon, 24 Sep 2018 08:30:00 MDT -06:00
+    Date.tomorrow.at tod, Time.find_zone!("US/Mountain") # => Tue, 25 Sep 2018 08:30:00 MDT -06:00
 
 ActiveRecord Serializable Attribute Support
 =======================
