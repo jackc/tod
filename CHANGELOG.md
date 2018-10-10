@@ -1,4 +1,4 @@
-# Unreleased
+# 2.2.0 (October 10, 2018)
 
 * Add string formatting compatible with Rails (Tate Johnson)
 * Add ability to use ActiveRecord's attribute API (Brent Wheeldon)
