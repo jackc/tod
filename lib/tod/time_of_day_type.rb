@@ -1,5 +1,5 @@
 module Tod
-  class TimeOfDayType < ActiveRecord::Type::Value
+  class TimeOfDayType < ActiveModel::Type::Value
     def cast(value)
       TimeOfDay.load(value)
     end

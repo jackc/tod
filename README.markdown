@@ -226,9 +226,9 @@ produce an object with the correct time and time zone, pass in an
     tod.on time, Time.find_zone!("US/Mountain")          # => Mon, 24 Sep 2018 08:30:00 MDT -06:00
     Date.tomorrow.at tod, Time.find_zone!("US/Mountain") # => Tue, 25 Sep 2018 08:30:00 MDT -06:00
 
-ActiveRecord Serializable Attribute Support
+ActiveModel Serializable Attribute Support
 =======================
-Tod::TimeOfDay implements a custom serialization contract for ActiveRecord serialize which allows to store Tod::TimeOfDay directly
+Tod::TimeOfDay implements a custom serialization contract for ActiveModel serialize which allows to store Tod::TimeOfDay directly
 in a column of the time type.
 
 Example:
