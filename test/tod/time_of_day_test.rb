@@ -176,6 +176,13 @@ describe "TimeOfDay" do
     end
   end
 
+  describe "value_for_database" do
+    it "returns a formatted value for database query serialization" do
+      t = Tod::TimeOfDay.new(12,15,05)
+      assert_equal "12:15:05", t.value_for_database
+    end
+  end
+
   describe "to_s" do
     it "is aliased to to_formatted_s" do
       t = Tod::TimeOfDay.new(8,15,30)

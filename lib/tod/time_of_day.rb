@@ -106,6 +106,10 @@ module Tod
     end
     alias_method :to_s, :to_formatted_s
 
+    def value_for_database
+      to_s
+    end
+
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
     def +(num_seconds)
