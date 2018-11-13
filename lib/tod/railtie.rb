@@ -1,4 +1,6 @@
-require "active_model/type"
+if Rails.version[0] > "4"
+  require "active_model/type"
+end
 require "tod/time_of_day_type"
 
 module Tod
