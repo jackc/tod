@@ -34,19 +34,19 @@ module Tod
     /x
 
     WORDS = {
-      "noon" => "12pm",
-      "midnight" => "12am"
-    }
+      "noon" => "12pm".freeze,
+      "midnight" => "12am".freeze
+    }.freeze
 
     NUM_SECONDS_IN_DAY = 86400
     NUM_SECONDS_IN_HOUR = 3600
     NUM_SECONDS_IN_MINUTE = 60
 
     FORMATS = {
-      short: "%-l:%M %P",
-      medium: "%-l:%M:%S %P",
-      time: "%H:%M"
-    }
+      short: "%-l:%M %P".freeze,
+      medium: "%-l:%M:%S %P".freeze,
+      time: "%H:%M".freeze
+    }.freeze
 
     def initialize(h, m=0, s=0)
       @hour = Integer(h)
@@ -89,7 +89,7 @@ module Tod
     def strftime(format_string)
       # Special case 2400 because strftime will load TimeOfDay into Time which
       # will convert 24 to 0
-      format_string.gsub!(/%H|%k/, '24') if @hour == 24
+      format_string = format_string.gsub(/%H|%k/, '24') if @hour == 24
       Time.local(2000,1,1, @hour, @minute, @second).strftime(format_string)
     end
 
