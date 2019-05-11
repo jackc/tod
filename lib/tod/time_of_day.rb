@@ -36,7 +36,7 @@ module Tod
     WORDS = {
       "noon" => "12pm".freeze,
       "midnight" => "12am".freeze
-    }.freeze
+    }
 
     NUM_SECONDS_IN_DAY = 86400
     NUM_SECONDS_IN_HOUR = 3600
@@ -46,7 +46,7 @@ module Tod
       short: "%-l:%M %P".freeze,
       medium: "%-l:%M:%S %P".freeze,
       time: "%H:%M".freeze
-    }.freeze
+    }
 
     def initialize(h, m=0, s=0)
       @hour = Integer(h)
