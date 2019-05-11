@@ -1,13 +1,7 @@
 language: ruby
 rvm:
-  - 2.3.3
-  - 2.2.6
+  - 2.6.3
+  - 2.5.5
 gemfile:
-  - gemfiles/4.0.gemfile
-  - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
-  - gemfiles/5.0.gemfile
-matrix:
-  include:
-    - rvm: 2.5.1
-      gemfile: gemfiles/5.2.gemfile
+  - gemfiles/5.2.gemfile
