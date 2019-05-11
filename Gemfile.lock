@@ -41,7 +41,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (>= 3.0.0)
+  activerecord (>= 4.2.0)
   arel
   minitest
   pry-byebug
@@ -51,4 +51,4 @@ DEPENDENCIES
   tzinfo
 
 BUNDLED WITH
-   1.16.3
+   1.17.2
