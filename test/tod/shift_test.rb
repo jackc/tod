@@ -352,4 +352,19 @@ describe "Shift" do
       refute shift.exclude_end?
     end
   end
+
+  describe "merge" do
+    it "merges a shift into another" do
+      beginning_expected = Tod::TimeOfDay.new 8
+      ending_expected = Tod::TimeOfDay.new 18
+
+      shift_one = Tod::Shift.new(beginning_expected, Tod::TimeOfDay.new(17))
+      shift_two = Tod::Shift.new(Tod::TimeOfDay.new(10), ending_expected)
+
+      merged_shift = shift_one.merge(shift_two)
+
+      assert_equal beginning_expected, merged_shift.beginning
+      assert_equal ending_expected, merged_shift.ending
+    end
+  end
 end
