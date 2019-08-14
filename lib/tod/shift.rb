@@ -26,7 +26,7 @@ module Tod
 
     # Returns true if the time of day is inside the shift, false otherwise.
     def include?(tod)
-      second = tod.to_i
+      second = tod.is_a?(::Tod::TimeOfDay) ? tod.to_i : ::Tod::TimeOfDay(tod).to_i
       second += TimeOfDay::NUM_SECONDS_IN_DAY if second < @range.first
       @range.cover?(second)
     end
