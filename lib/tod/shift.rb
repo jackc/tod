@@ -12,8 +12,8 @@ module Tod
         raise ArgumentError, "exclude_end must be true or false"
       end
 
-      @beginning = beginning
-      @ending = ending
+      @beginning = beginning.is_a?(TimeOfDay) ? beginning : TimeOfDay(beginning)
+      @ending = ending.is_a?(TimeOfDay) ? ending : TimeOfDay(ending)
       @exclude_end = exclude_end
 
       normalized_ending = ending.to_i
