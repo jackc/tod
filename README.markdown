@@ -46,6 +46,15 @@ are all optional.
     Tod::TimeOfDay.parse "151253"                       # => 15:12:53
     Tod::TimeOfDay.parse "noon"                         # => 12:00:00
     Tod::TimeOfDay.parse "midnight"                     # => 00:00:00
+    
+Strings recognized as being in 24H format may optionally use any non-numeric
+character(s) as separators. (A string will be treated as 24H format unless it
+terminates with a meridian indicator)
+
+    Tod::TimeOfDay.parse "2300"                         # => 23:00:00
+    Tod::TimeOfDay.parse "23:00"                        # => 23:00:00
+    Tod::TimeOfDay.parse "23+00"                        # => 23:00:00
+    Tod::TimeOfDay.parse "23H30M58S"                    # => 23:30:58
 
 Tod::TimeOfDay.parse raises an ArgumentError if the argument to parse is not
 parsable. Tod::TimeOfDay.try_parse will instead return nil if the argument is not

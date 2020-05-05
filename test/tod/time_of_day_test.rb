@@ -63,7 +63,9 @@ describe "TimeOfDay" do
   should_parse "13",          13, 0, 0
   should_parse "1230",        12,30, 0
   should_parse "08:15",        8,15, 0
+  should_parse "08+15",        8,15, 0
   should_parse "08:15:30",     8,15,30
+  should_parse "08H15M30S",    8,15,30
   should_parse "18",          18, 0, 0
   should_parse "23",          23, 0, 0
 

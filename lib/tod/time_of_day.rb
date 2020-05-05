@@ -10,10 +10,11 @@ module Tod
     PARSE_24H_REGEX = /
       \A
       ([01]?\d|2[0-4])
-      :?
+      \D*
       ([0-5]\d)?
-      :?
+      \D*
       ([0-5]\d)?
+      \D*
       \z
     /x
 
@@ -179,18 +180,23 @@ module Tod
       tod_string = tod_string.strip
       tod_string = tod_string.downcase
       tod_string = WORDS[tod_string] || tod_string
-      if PARSE_24H_REGEX =~ tod_string || PARSE_12H_REGEX =~ tod_string
-        hour, minute, second, a_or_p = $1.to_i, $2.to_i, $3.to_i, $4
-        if hour == 12 && a_or_p == "a"
-          hour = 0
-        elsif hour < 12 && a_or_p == "p"
-          hour += 12
-        end
+      tod_string.match?(/[ap]m?\z/) ? try_parse_12(tod_string) : try_parse_24(tod_string)
+    end
 
-        new hour, minute, second
-      else
-        nil
-      end
+    def self.try_parse_12(tod_string)
+      return unless PARSE_12H_REGEX =~ tod_string
+
+      hour, minute, second, a_or_p = $1.to_i, $2.to_i, $3.to_i, $4
+      hour = 0 if hour == 12 && a_or_p == "a"
+      hour += 12 if hour < 12 && a_or_p == "p"
+      new hour, minute, second
+    end
+
+    def self.try_parse_24(tod_string)
+      return unless PARSE_24H_REGEX =~ tod_string 
+
+      hour, minute, second = $1.to_i, $2.to_i, $3.to_i
+      new hour, minute, second
     end
 
     # Determine if a string is parsable into a TimeOfDay instance
