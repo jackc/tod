@@ -33,20 +33,40 @@ module Tod
 
     # Returns true if ranges overlap, false otherwise.
     def overlaps?(other)
-      max_seconds = TimeOfDay::NUM_SECONDS_IN_DAY
-
-      # Standard case, when Shifts are on the same day
-      a, b = [self, other].map(&:range).sort_by(&:first)
-      op = a.exclude_end? ? :> : :>=
-      return true if a.last.send(op, b.first)
-
-      # Special cases, when Shifts span to the next day
-      return false if (a.last < max_seconds) && (b.last < max_seconds)
-
-      a = Range.new(a.first, a.last - max_seconds, a.exclude_end?) if a.last > max_seconds
-      b = Range.new(b.first, b.last - max_seconds, b.exclude_end?) if b.last > max_seconds
-      a, b = [a, b].sort_by(&:last)
-      b.last.send(op, a.last) && a.last.send(op, b.first)
+      a, b = [self, other].map(&:range)
+      #
+      #  Although a Shift which passes through midnight is stored
+      #  internally as lasting more than TimeOfDay::NUM_SECONDS_IN_DAY
+      #  seconds from midnight, that's not how it is meant to be
+      #  handled.  Rather, it consists of two chunks:
+      #
+      #    range.first => Midnight
+      #    Midnight => range.last
+      #
+      #  The second one is *before* the first.  None of it is more than
+      #  TimeOfDay::NUM_SECONDS_IN_DAY after midnight.  We thus need to shift
+      #  each of our ranges to cover all overlapping possibilities.
+      #
+      one_day = TimeOfDay::NUM_SECONDS_IN_DAY
+      ashifted =
+        Range.new(a.first + one_day, a.last + one_day, a.exclude_end?)
+      bshifted =
+        Range.new(b.first + one_day, b.last + one_day, b.exclude_end?)
+      #
+      #  For exclusive ranges we need:
+      #
+      #  a.ending > b.beginning && b.ending > a.beginning
+      #
+      #  and for inclusive we need:
+      #
+      #  a.ending >= b.beginning && b.ending >= a.beginning
+      #
+      aop = a.exclude_end? ? :> : :>=
+      bop = b.exclude_end? ? :> : :>=
+      #
+      (a.last.send(aop, b.first) && b.last.send(bop, a.first)) ||
+      (ashifted.last.send(aop, b.first) && b.last.send(bop, ashifted.first)) ||
+      (a.last.send(aop, bshifted.first) && bshifted.last.send(bop, a.first))
     end
 
     def contains?(shift)

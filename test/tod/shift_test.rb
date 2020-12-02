@@ -99,6 +99,49 @@ describe "Shift" do
       shift2 = Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(12), true)
       refute shift1.overlaps?(shift2)
     end
+
+    it "copes correctly with mixed shifts" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5))
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(12), true)
+      assert shift1.overlaps?(shift2)
+      assert shift2.overlaps?(shift1)
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(1), Tod::TimeOfDay.new(5), true)
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(12))
+      refute shift1.overlaps?(shift2)
+      refute shift2.overlaps?(shift1)
+    end
+
+    it "copes correctly with zero length inclusive end shifts" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(17))
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(10), Tod::TimeOfDay.new(10))
+      shift3 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(9))
+      shift4 = Tod::Shift.new(Tod::TimeOfDay.new(17), Tod::TimeOfDay.new(17))
+      assert shift1.overlaps?(shift2)
+      assert shift2.overlaps?(shift1)
+
+      assert shift1.overlaps?(shift3)
+      assert shift3.overlaps?(shift1)
+
+      assert shift1.overlaps?(shift4)
+      assert shift4.overlaps?(shift1)
+
+    end
+
+    it "copes correctly with zero length exclusive end shifts" do
+      shift1 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(17), true)
+      shift2 = Tod::Shift.new(Tod::TimeOfDay.new(10), Tod::TimeOfDay.new(10), true)
+      shift3 = Tod::Shift.new(Tod::TimeOfDay.new(9), Tod::TimeOfDay.new(9), true)
+      shift4 = Tod::Shift.new(Tod::TimeOfDay.new(17), Tod::TimeOfDay.new(17), true)
+      assert shift1.overlaps?(shift2)
+      assert shift2.overlaps?(shift1)
+
+      refute shift1.overlaps?(shift3)
+      refute shift3.overlaps?(shift1)
+
+      refute shift1.overlaps?(shift4)
+      refute shift4.overlaps?(shift1)
+
+    end
   end
 
   describe "contains?" do
