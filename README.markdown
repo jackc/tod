@@ -120,7 +120,7 @@ Round to the given nearest number of seconds.
 Floor
 ----------
 
-Round down by given number of seconds
+Round down by given number of seconds.
 
     Tod::TimeOfDay.new(8,15,31).floor(5)     # => "08:15:30"
     Tod::TimeOfDay.new(8,15,34).floor(60)    # => "08:15:00"
@@ -129,7 +129,7 @@ Round down by given number of seconds
 Ceiling
 ----------
 
-Round up by given number of seconds
+Round up by given number of seconds.
 
     Tod::TimeOfDay.new(8,15,31).ceil(5)     # => "08:15:35"
     Tod::TimeOfDay.new(8,15,34).ceil(60)    # => "08:16:00"
