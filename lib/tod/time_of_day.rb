@@ -204,25 +204,5 @@ module Tod
     def self.time_zone
       (Time.respond_to?(:zone) && Time.zone) || Time
     end
-
-    def self.dump(time_of_day)
-      time_of_day =
-        if time_of_day.is_a? Hash
-           # rails multiparam attribute
-           # get hour, minute and second and construct new TimeOfDay object
-          ::Tod::TimeOfDay.new(time_of_day[4], time_of_day[5], time_of_day[6])
-        else
-          # return nil, if input is not parsable
-          Tod::TimeOfDay(time_of_day){}
-        end
-      time_of_day.to_s if time_of_day
-    end
-
-    def self.load(time)
-      if time && !time.to_s.empty?
-        return ::Tod::TimeOfDay.new(24) if time.respond_to?(:day) && time.day == 2 && time.hour == 0 && time.min == 0 && time.sec == 0
-        ::Tod::TimeOfDay(time)
-      end
-    end
   end
 end

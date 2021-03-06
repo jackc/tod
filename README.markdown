@@ -226,30 +226,19 @@ produce an object with the correct time and time zone, pass in an
     tod.on time, Time.find_zone!("US/Mountain")          # => Mon, 24 Sep 2018 08:30:00 MDT -06:00
     Date.tomorrow.at tod, Time.find_zone!("US/Mountain") # => Tue, 25 Sep 2018 08:30:00 MDT -06:00
 
-ActiveModel Serializable Attribute Support
+ActiveRecord Attribute Support
 =======================
-Tod::TimeOfDay implements a custom serialization contract for ActiveModel serialize which allows to store Tod::TimeOfDay directly
+Tod::TimeOfDay can be used as an ActiveRecord attribute to store Tod::TimeOfDay directly
 in a column of the time type.
 
 Example:
 
 ```ruby
 class Order < ActiveRecord::Base
-  serialize :time, Tod::TimeOfDay
+  attribute :time, :time_only
 end
 order = Order.create(time: Tod::TimeOfDay.new(9,30))
 order.time                                      # => 09:30:00
-```
-
-By default Rails 5.1 treats database `time` values as if time zones are
-meaningful. Tod::TimeOfDay cannot correctly save and restore values when Rails
-automatically shifts values based on time zone and the normal `serialize`
-interface is not able to override this behavior. To correctly serialize
-Tod::TimeOfDay values with Rails 5.1 time zone handling must be disabled for
-database `time` types. This can be done with the following config:
-
-```
-config.active_record.time_zone_aware_types = [:datetime]
 ```
 
 MongoDB Support
@@ -294,10 +283,10 @@ Compatibility
 
 [![Build Status](https://travis-ci.org/jackc/tod.png)](https://travis-ci.org/jackc/tod)
 
-Tod is tested against Ruby 2.5.x, Ruby 2.6.x, Rails 4.2.x, and 5.2.x.
+Tod is tested against Ruby 2.6.x and  Rails 6.x.
 
 
 License
 =======
 
-Copyright (c) 2010-2015 Jack Christensen, released under the MIT license
+Copyright (c) 2010-2021 Jack Christensen, released under the MIT license

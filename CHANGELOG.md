@@ -1,3 +1,7 @@
+# 3.0.0 (March 6, 2021)
+
+* Support and require Rails 6
+
 # 2.2.0 (October 10, 2018)
 
 * Add string formatting compatible with Rails (Tate Johnson)
