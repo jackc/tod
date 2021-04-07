@@ -88,4 +88,18 @@ describe "TimeOfDay()" do
 
     assert_equal(tod, Tod::TimeOfDay.new(24, 00, 00))
   end
+
+  it "parses 24:00:00.000" do
+    t   = "24:00:00.000"
+    tod = Tod::TimeOfDay(t)
+
+    assert_equal(tod, Tod::TimeOfDay.new(24, 00, 00))
+  end
+
+  it "parses 04:00:00.000 pm" do
+    t   = "04:00:00.000 pm"
+    tod = Tod::TimeOfDay(t)
+
+    assert_equal(tod, Tod::TimeOfDay.new(16, 00, 00))
+  end
 end
