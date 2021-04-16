@@ -116,6 +116,24 @@ Round to the given nearest number of seconds.
     Tod::TimeOfDay.new(8,15,31).round(5)     # => "08:15:30"
     Tod::TimeOfDay.new(8,15,34).round(60)    # => "08:16:00"
     Tod::TimeOfDay.new(8,02,29).round(300)   # => "08:00:00"
+    
+Floor
+----------
+
+Round down by given number of seconds.
+
+    Tod::TimeOfDay.new(8,15,31).floor(5)     # => "08:15:30"
+    Tod::TimeOfDay.new(8,15,34).floor(60)    # => "08:15:00"
+    Tod::TimeOfDay.new(8,02,29).floor(300)   # => "08:00:00"
+    
+Ceiling
+----------
+
+Round up by given number of seconds.
+
+    Tod::TimeOfDay.new(8,15,31).ceil(5)     # => "08:15:35"
+    Tod::TimeOfDay.new(8,15,34).ceil(60)    # => "08:16:00"
+    Tod::TimeOfDay.new(8,02,29).ceil(300)   # => "08:05:00"
 
 Convenience methods for dates and times
 ---------------------------------------
