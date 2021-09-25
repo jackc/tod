@@ -182,7 +182,7 @@ Include?
     Tod::Shift.new(Tod::TimeOfDay.new(5), Tod::TimeOfDay.new(9), true).include?(Tod::TimeOfDay.new(9)) # => false
 
 
-Overlap?
+Overlaps?
 --------------------
 
     breakfast = Tod::Shift.new(Tod::TimeOfDay.new(8), Tod::TimeOfDay.new(11))
