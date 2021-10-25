@@ -11,6 +11,16 @@ describe "Shift" do
     end
   end
 
+  describe "inspect" do
+    it "provides friendly description" do
+      shift = Tod::Shift.new Tod::TimeOfDay.new(8), Tod::TimeOfDay.new(10), false
+      assert_equal "#<Tod::Shift 08:00:00..10:00:00>", shift.inspect
+
+      shift = Tod::Shift.new Tod::TimeOfDay.new(8), Tod::TimeOfDay.new(10), true
+      assert_equal "#<Tod::Shift 08:00:00...10:00:00>", shift.inspect
+    end
+  end
+
   describe "#duration" do
     it "returns correct duration when first time is lower than the second one" do
       duration_expected = 4 * 60 * 60 + 30 * 60 + 30 # 4 hours, 30 min and 30 sec later

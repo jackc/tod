@@ -112,6 +112,10 @@ module Tod
       to_s
     end
 
+    def inspect
+      "#<#{self.class} #{self}>"
+    end
+
     # Return a new TimeOfDay num_seconds greater than self. It will wrap around
     # at midnight.
     def +(num_seconds)
