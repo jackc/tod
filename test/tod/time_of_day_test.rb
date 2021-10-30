@@ -190,6 +190,13 @@ describe "TimeOfDay" do
     end
   end
 
+  describe "inspect" do
+    it "is friendly representation" do
+      t = Tod::TimeOfDay.new(12,15,05)
+      assert_equal "#<Tod::TimeOfDay 12:15:05>", t.inspect
+    end
+  end
+
   describe "to_i" do
     it "formats to integer" do
       assert_equal 29730, Tod::TimeOfDay.new(8,15,30).to_i

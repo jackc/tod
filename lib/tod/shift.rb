@@ -24,6 +24,10 @@ module Tod
       freeze # Shift instances are value objects
     end
 
+    def inspect
+      "#<#{self.class} #{beginning}#{exclude_end? ? '...' : '..'}#{ending}>"
+    end
+
     # Returns true if the time of day is inside the shift, false otherwise.
     def include?(tod)
       second = tod.to_i
