@@ -103,5 +103,11 @@ module Tod
     def slide(seconds)
       self.class.new(beginning + seconds, ending + seconds, exclude_end?)
     end
+
+    def merge(other_shift)
+      new_beginning = [@beginning, other_shift.beginning].min
+      new_ending = [@ending, other_shift.ending].max
+      return self.class.new(new_beginning, new_ending)
+    end
   end
 end
