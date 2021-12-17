@@ -74,10 +74,7 @@ module Tod
     end
 
     def contains?(shift)
-      inclusive_ending = shift.ending
-      inclusive_ending -= 1.second if shift.exclude_end?
-
-      self.include?(shift.beginning) && self.include?(inclusive_ending)
+      self.include?(shift.beginning) && self.include?(shift.inclusive_ending)
     end
 
     # Return shift duration in seconds.
@@ -105,6 +102,11 @@ module Tod
     # Move start and end by a number of seconds and return new shift.
     def slide(seconds)
       self.class.new(beginning + seconds, ending + seconds, exclude_end?)
+    end
+
+    # Returns equivalent inclusive ending to existent exclusive ending
+    def inclusive_ending
+      self.exclude_end? ? ending - 1.second : ending
     end
   end
 end
