@@ -74,7 +74,10 @@ module Tod
     end
 
     def contains?(shift)
-      self.include?(shift.beginning) && self.include?(shift.ending)
+      inclusive_ending = shift.ending
+      inclusive_ending -= 1.second if shift.exclude_end?
+
+      self.include?(shift.beginning) && self.include?(inclusive_ending)
     end
 
     # Return shift duration in seconds.
