@@ -104,9 +104,11 @@ module Tod
       self.class.new(beginning + seconds, ending + seconds, exclude_end?)
     end
 
+    protected
+
     # Returns equivalent inclusive ending to existent exclusive ending
     def inclusive_ending
-      self.exclude_end? ? ending - 1.second : ending
+      self.exclude_end? ? ending - 1 : ending
     end
   end
 end
