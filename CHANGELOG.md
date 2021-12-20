@@ -1,3 +1,9 @@
+# 3.1.0 (December 20, 2021)
+
+* Allow / ignore parsing milliseconds (Eli Fatsi)
+* Improve TimeOfDate#inspect and Shift#inspect (zverok)
+* Fix Shift#contains? with exclusive ending (nazamoresco)
+
 # 3.0.0 (March 6, 2021)
 
 * Support and require Rails 6
