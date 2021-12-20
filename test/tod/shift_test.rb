@@ -173,7 +173,7 @@ describe "Shift" do
       refute shift1.contains?(shift2)
     end
 
-    it "it is true when beginning is included and exclusive endings match" do
+    it "is true when beginning is included and exclusive endings match" do
       inside = Tod::Shift.new(Tod::TimeOfDay.new(13), Tod::TimeOfDay.new(17), true)
       outside = Tod::Shift.new(Tod::TimeOfDay.new(10), Tod::TimeOfDay.new(17), true)
       assert outside.contains?(inside)

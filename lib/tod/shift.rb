@@ -106,7 +106,7 @@ module Tod
 
     protected
 
-    # Returns equivalent inclusive ending to existent exclusive ending
+    # If exclusive ending returns equivalent ending but inclusive
     def inclusive_ending
       self.exclude_end? ? ending - 1 : ending
     end
