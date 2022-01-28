@@ -4,7 +4,7 @@ module Tod
       if value.is_a? Hash
           # rails multiparam attribute
           # get hour, minute and second and construct new TimeOfDay object
-        ::Tod::TimeOfDay.new(value[4], value[5], value[6])
+        ::Tod::TimeOfDay.new(value[4], value[5], value[6] || 0)
       else
         # return nil, if input is not parsable
         Tod::TimeOfDay(value){}

@@ -244,6 +244,18 @@ order = Order.create(time: Tod::TimeOfDay.new(9,30))
 order.time                                      # => 09:30:00
 ```
 
+In Rails, this can be used with `time_select` in forms like so:
+
+```ruby
+f.time_select :time, ignore_date: true
+```
+
+Or with **simple_form**:
+
+```ruby
+f.input :time, as: :time, ignore_date: true
+```
+
 MongoDB Support
 ===============
 
