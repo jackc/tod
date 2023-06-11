@@ -295,6 +295,13 @@ describe "Shift" do
       shift2 = Tod::Shift.new tod1, tod2, true
       assert !(shift1 == shift2)
     end
+
+    it "is false when one side is nil" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift = Tod::Shift.new tod1, tod2
+      assert !(shift == nil)
+    end
   end
 
   describe "#eql?" do
@@ -328,6 +335,13 @@ describe "Shift" do
       shift1 = Tod::Shift.new tod1, tod2
       shift2 = Tod::Shift.new tod1, tod2, true
       assert !shift1.eql?(shift2)
+    end
+
+    it "is false when one side is nil" do
+      tod1 = Tod::TimeOfDay.new 8,30
+      tod2 = Tod::TimeOfDay.new 13,00,30
+      shift = Tod::Shift.new tod1, tod2
+      assert !shift.eql?(nil )
     end
   end
 

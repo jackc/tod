@@ -88,11 +88,11 @@ module Tod
     end
 
     def ==(other)
-      @range == other.range
+      !other.nil? && @range == other.range
     end
 
     def eql?(other)
-      @range.eql?(other.range)
+      !other.nil? && @range.eql?(other.range)
     end
 
     def hash
