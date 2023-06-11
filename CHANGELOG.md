@@ -1,3 +1,8 @@
+# 3.1.1 (June 11, 2023)
+
+* Allow use in Rails forms with time_select (Bill Pearce)
+* Prevent error when comparing a range to nil (Chris Northwood)
+
 # 3.1.0 (December 20, 2021)
 
 * Allow / ignore parsing milliseconds (Eli Fatsi)
