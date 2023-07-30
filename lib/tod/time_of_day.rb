@@ -107,6 +107,7 @@ module Tod
       end
     end
     alias_method :to_s, :to_formatted_s
+    alias_method :to_fs, :to_formatted_s
 
     def value_for_database
       to_s
