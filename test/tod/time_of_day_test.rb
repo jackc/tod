@@ -190,6 +190,13 @@ describe "TimeOfDay" do
     end
   end
 
+  describe "to_fs" do
+    it "is aliased to to_formatted_s" do
+      t = Tod::TimeOfDay.new(8,15,30)
+      assert_equal t.to_formatted_s, t.to_s
+    end
+  end
+
   describe "inspect" do
     it "is friendly representation" do
       t = Tod::TimeOfDay.new(12,15,05)
