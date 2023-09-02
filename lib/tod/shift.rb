@@ -12,14 +12,14 @@ module Tod
         raise ArgumentError, "exclude_end must be true or false"
       end
 
-      @beginning = beginning
-      @ending = ending
+      @beginning = beginning.is_a?(::Tod::TimeOfDay) ? beginning : ::Tod::TimeOfDay(beginning)
+      @ending = ending.is_a?(::Tod::TimeOfDay) ? ending : ::Tod::TimeOfDay(ending)
       @exclude_end = exclude_end
 
-      normalized_ending = ending.to_i
-      normalized_ending += TimeOfDay::NUM_SECONDS_IN_DAY if normalized_ending < beginning.to_i
+      normalized_ending = @ending.to_i
+      normalized_ending += TimeOfDay::NUM_SECONDS_IN_DAY if normalized_ending < @beginning.to_i
 
-      @range = Range.new(beginning.to_i, normalized_ending, @exclude_end)
+      @range = Range.new(@beginning.to_i, normalized_ending, @exclude_end)
 
       freeze # Shift instances are value objects
     end
@@ -30,7 +30,7 @@ module Tod
 
     # Returns true if the time of day is inside the shift, false otherwise.
     def include?(tod)
-      second = tod.to_i
+      second = tod.is_a?(::Tod::TimeOfDay) ? tod.to_i : ::Tod::TimeOfDay(tod).to_i
       second += TimeOfDay::NUM_SECONDS_IN_DAY if second < @range.first
       @range.cover?(second)
     end
