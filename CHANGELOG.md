@@ -1,3 +1,8 @@
+# 3.1.2 (January 12, 2024)
+
+* Add Tod::TimeOfDay#to_fs for Rails 7 compatibility (Igor S. Morozov)
+* Shift internally calls second_of_day instead of to_i on objects that should quack like a Tod::TimeOfDay. This makes silent errors caused by passing a bad argument less likely.
+
 # 3.1.1 (June 11, 2023)
 
 * Allow use in Rails forms with time_select (Bill Pearce)
