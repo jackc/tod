@@ -16,10 +16,10 @@ module Tod
       @ending = ending
       @exclude_end = exclude_end
 
-      normalized_ending = ending.to_i
-      normalized_ending += TimeOfDay::NUM_SECONDS_IN_DAY if normalized_ending < beginning.to_i
+      normalized_ending = ending.second_of_day
+      normalized_ending += TimeOfDay::NUM_SECONDS_IN_DAY if normalized_ending < beginning.second_of_day
 
-      @range = Range.new(beginning.to_i, normalized_ending, @exclude_end)
+      @range = Range.new(beginning.second_of_day, normalized_ending, @exclude_end)
 
       freeze # Shift instances are value objects
     end
@@ -30,7 +30,7 @@ module Tod
 
     # Returns true if the time of day is inside the shift, false otherwise.
     def include?(tod)
-      second = tod.to_i
+      second = tod.second_of_day
       second += TimeOfDay::NUM_SECONDS_IN_DAY if second < @range.first
       @range.cover?(second)
     end
