@@ -72,10 +72,20 @@ module Tod
       @second_of_day <=> other.second_of_day
     end
 
+    # Rounding down by number of seconds
+    def floor(sec = 1)
+      self - (self.to_i % round_sec)
+    end
+    
+    # Rounding up by number of seconds
+    def ceil(sec = 1)
+      floor(sec) + sec
+    end
+    
     # Rounding to the given nearest number of seconds
     def round(round_sec = 1)
-      down = self - (self.to_i % round_sec)
-      up = down + round_sec
+      down = floor(round_sec)
+      up = ceil(round_sec)
 
       difference_down = self - down
       difference_up = up - self
